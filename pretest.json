@@ -1,0 +1,141 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "What is the primary purpose of Network Time Protocol (NTP)?",
+      "answers": {
+        "a": "To encrypt network data",
+        "b": "To synchronize clocks of computer systems over a network",
+        "c": "To compress data for faster transmission",
+        "d": "To establish secure communication channels"
+      },
+      "explanations": {
+        "a": "Incorrect: NTP does not deal with data encryption.",
+        "b": "Correct: NTP is designed to synchronize the clocks of computers over a network.",
+        "c": "Incorrect: NTP does not compress data.",
+        "d": "Incorrect: While NTP can use secure protocols, its main purpose is not to establish secure communication channels."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Why is clock synchronization important in distributed systems?",
+      "answers": {
+        "a": "It ensures faster data transmission",
+        "b": "It helps in maintaining data consistency",
+        "c": "It enhances data compression",
+        "d": "It simplifies the network topology"
+      },
+      "explanations": {
+        "a": "Incorrect: Synchronization does not directly affect data transmission speed.",
+        "b": "Correct: Clock synchronization is crucial for maintaining data consistency and coordinating actions across distributed systems.",
+        "c": "Incorrect: Synchronization does not relate to data compression.",
+        "d": "Incorrect: Synchronization does not simplify network topology."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Which port does NTP typically use?",
+      "answers": {
+        "a": "80",
+        "b": "123",
+        "c": "443",
+        "d": "21"
+      },
+      "explanations": {
+        "a": "Incorrect: Port 80 is used for HTTP.",
+        "b": "Correct: NTP typically uses UDP port 123.",
+        "c": "Incorrect: Port 443 is used for HTTPS.",
+        "d": "Incorrect: Port 21 is used for FTP."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Which protocol can NTP use to enhance security?",
+      "answers": {
+        "a": "HTTPS",
+        "b": "SSH",
+        "c": "SSL/TLS",
+        "d": "MD5"
+      },
+      "explanations": {
+        "a": "Incorrect: HTTPS is not used directly with NTP.",
+        "b": "Incorrect: SSH is not used directly with NTP.",
+        "c": "Correct: NTP can use SSL/TLS for enhanced security in the form of NTPsec.",
+        "d": "Incorrect: MD5 is a hashing algorithm, not a protocol."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is the reference clock in NTP?",
+      "answers": {
+        "a": "The clock on the local system",
+        "b": "A specific time server designated by the user",
+        "c": "A high-precision time source used as a reference",
+        "d": "The clock on the NTP server"
+      },
+      "explanations": {
+        "a": "Incorrect: The reference clock is typically an external, high-precision time source.",
+        "b": "Incorrect: The reference clock is not user-designated.",
+        "c": "Correct: The reference clock is a high-precision time source used as a reference for synchronization.",
+        "d": "Incorrect: The reference clock is typically an external source, not the NTP server's clock."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is the stratum level in NTP?",
+      "answers": {
+        "a": "The distance from the reference clock",
+        "b": "The bandwidth available for synchronization",
+        "c": "The time delay in synchronization",
+        "d": "The security level of the NTP server"
+      },
+      "explanations": {
+        "a": "Correct: Stratum levels indicate the distance from the reference clock; stratum 0 is the reference clock itself.",
+        "b": "Incorrect: Stratum levels do not measure bandwidth.",
+        "c": "Incorrect: Stratum levels are not about time delay.",
+        "d": "Incorrect: Stratum levels do not denote security levels."
+      },
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is the stratum level of the reference clock in NTP?",
+      "answers": {
+        "a": "0",
+        "b": "1",
+        "c": "2",
+        "d": "3"
+      },
+      "explanations": {
+        "a": "Correct: The reference clock is at stratum 0.",
+        "b": "Incorrect: The reference clock is at stratum 0.",
+        "c": "Incorrect: The reference clock is at stratum 0.",
+        "d": "Incorrect: The reference clock is at stratum 0."
+      },
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is the stratum level of a server directly synchronized to the reference clock?",
+      "answers": {
+        "a": "0",
+        "b": "1",
+        "c": "2",
+        "d": "3"
+      },
+      "explanations": {
+        "a": "Incorrect: A server directly synchronized to the reference clock is at stratum 1.",
+        "b": "Correct: A server directly synchronized to the reference clock is at stratum 1.",
+        "c": "Incorrect: A server directly synchronized to the reference clock is at stratum 1.",
+        "d": "Incorrect: A server directly synchronized to the reference clock is at stratum 1."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    }
+  ]
+}

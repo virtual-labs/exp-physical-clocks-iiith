@@ -1,0 +1,90 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "How often does NTP typically synchronize clocks in a well-configured system?",
+      "answers": {
+        "a": "Every second",
+        "b": "Every minute",
+        "c": "Every hour",
+        "d": "Every few minutes to several hours, depending on the stability"
+      },
+      "explanations": {
+        "a": "Incorrect: This is too frequent.",
+        "b": "Incorrect: This may be too frequent for many systems.",
+        "c": "Incorrect: This is not typically frequent enough.",
+        "d": "Correct: NTP adjusts the synchronization frequency based on the stability of the network and the clocks."
+      },
+      "correctAnswer": "d",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Which of the following can impact the accuracy of NTP synchronization?",
+      "answers": {
+        "a": "Network delay variability",
+        "b": "The size of the data packets",
+        "c": "The number of network nodes",
+        "d": "The operating system used"
+      },
+      "explanations": {
+        "a": "Correct: Network delay variability can significantly impact NTP accuracy.",
+        "b": "Incorrect: The size of data packets is not a major factor in NTP accuracy.",
+        "c": "Incorrect: The number of network nodes does not directly affect NTP accuracy.",
+        "d": "Incorrect: While different operating systems may handle NTP differently, it is not the primary factor affecting accuracy."
+      },
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is the role of the 'offset' in NTP?",
+      "answers": {
+        "a": "It indicates the difference in the current time and the correct time",
+        "b": "It measures the round-trip delay",
+        "c": "It shows the amount of data transferred",
+        "d": "It encrypts the time packets"
+      },
+      "explanations": {
+        "a": "Correct: Offset is the difference between the local clock time and the reference clock time.",
+        "b": "Incorrect: This is the role of delay, not offset.",
+        "c": "Incorrect: Offset does not relate to data transfer.",
+        "d": "Incorrect: Offset does not involve encryption."
+      },
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "In the context of NTP, what is the significance of the 'intersection algorithm'?",
+      "answers": {
+        "a": "It improves the encryption of time packets",
+        "b": "It helps in selecting the best time source from multiple servers",
+        "c": "It compresses time synchronization data",
+        "d": "It measures the delay of time packets"
+      },
+      "explanations": {
+        "a": "Incorrect: The 'intersection algorithm' is not related to encryption.",
+        "b": "Correct: The 'intersection algorithm' is used in NTP to select the best time source when multiple servers provide time data.",
+        "c": "Incorrect: The 'intersection algorithm' does not compress data.",
+        "d": "Incorrect: The 'intersection algorithm' is not used to measure delay."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "How does NTP handle leap seconds to ensure accurate timekeeping?",
+      "answers": {
+        "a": "By pausing the clock for one second",
+        "b": "By speeding up or slowing down the clock gradually",
+        "c": "By introducing an offset at the beginning of the next hour",
+        "d": "By inserting or deleting a second at the specified time"
+      },
+      "explanations": {
+        "a": "Incorrect: NTP does not pause the clock.",
+        "b": "Incorrect: NTP does not gradually speed up or slow down the clock for leap seconds.",
+        "c": "Incorrect: NTP does not adjust the offset at the beginning of the next hour.",
+        "d": "Correct: NTP handles leap seconds by inserting (adding) or deleting (subtracting) a second at the specified time to adjust the clocks accordingly."
+      },
+      "correctAnswer": "d",
+      "difficulty": "beginner"
+    }
+  ]
+}
