@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/css/style.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/barecss@1.1.1/css/bare.min.css">
 <link rel="stylesheet" href="./css/main.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3"></script>
@@ -10,6 +11,125 @@
 <title>NTP Simulation</title>
 </head>
 <body>
+
+<!-- Instructions -->
+<div class="container">
+<div class="columns is-centered">
+  <div class="column">
+  <div class="v-collapsible-instruction-container v-instruction-container">
+    <div class="v-collapsible is-size-5">Instructions</div>
+    <div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
+      <p><strong>Experimental Steps</strong></p>
+      <ul style="list-style: disc;">
+        <li>
+          <strong>Select a Scenario:</strong>
+          <ul style="list-style: circle;">
+            <li>Choose a scenario from the dropdown menu to simulate different network configurations.</li>
+            <li>The scenarios range from local networks to globally distributed networks with varying levels of noise and asymmetry.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Adjust Parameters and Observe Effects:</strong>
+          <ul style="list-style: circle;">
+            <li>Use the control form to modify the following parameters individually and observe their effects on synchronization. The provided figure will help visualize the changes.</li>
+            <li>
+              <strong>Network Trip Time:</strong>
+              <ul style="list-style: lower-alpha;">
+                <li>Increase/decrease "Round trip time" to simulate longer or shorter network trip times.</li>
+                <li><strong>Observation:</strong> Longer trip times may result in greater uncertainty in the time synchronization process.</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Network Asymmetry:</strong>
+              <ul style="list-style: lower-alpha;">
+                <li>Adjust "Round trip time asymmetry variation" to introduce unequal delays in the forward and return paths.</li>
+                <li><strong>Observation:</strong> Higher asymmetry may result in greater discrepancies in calculated offsets.</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Network Trip Variation:</strong>
+              <ul style="list-style: lower-alpha;">
+                <li>Change "Round trip time variation" to simulate varying network jitter.</li>
+                <li><strong>Observation:</strong> Greater variation can make synchronization less predictable and accurate.</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Client Offset:</strong>
+              <ul style="list-style: lower-alpha;">
+                <li>Set different values for "Initial time offset of the client" to observe the impact of initial clock differences.</li>
+                <li><strong>Observation:</strong> Initial offsets should be corrected over multiple synchronization attempts.</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Client Drift Rate:</strong>
+              <ul style="list-style: lower-alpha;">
+                <li>Modify "Drift rate of the client" to simulate clock drift in the client.</li>
+                <li><strong>Observation:</strong> Higher drift rates necessitate more frequent synchronization to maintain accuracy.</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Client Sync Interval and Period:</strong>
+              <ul style="list-style: lower-alpha;">
+                <li>Adjust "Synchronization interval" and "Synchronization period" to control the synchronization frequency and duration.</li>
+                <li><strong>Observation:</strong> More frequent synchronization can mitigate the effects of clock drift but may increase network load.</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Server Response Delay:</strong>
+              <ul style="list-style: lower-alpha;">
+                <li>Change "Delay at server before responding to a request" to simulate server response delays.</li>
+                <li><strong>Observation:</strong> Higher response delays can increase the uncertainty in synchronization.</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <p><strong>Simulation controls</strong></p>
+      <ul style="list-style: disc;">
+        <li>
+          <strong>Buttons:</strong>
+          <ul style="list-style: circle;">
+            <li><strong>Start Simulation:</strong> Begin the simulation with the selected parameters.</li>
+            <li><strong>Stop Simulation:</strong> Halt the simulation in progress.</li>
+            <li><strong>Synchronize Now:</strong> Force an immediate synchronization between the client and server.</li>
+            <li><strong>Send Packet:</strong> Add a packet to the current synchronization process manually.</li>
+            <li><strong>Adjust Parameters:</strong> Modify the network and client parameters to observe their effects on synchronization.</li>
+            <li><strong>Clear Plot:</strong> Reset the current plot of round-trip time versus synchronization error.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Network and Simulation Parameters:</strong>
+          <ul style="list-style: circle;">
+            <li><strong>Round trip time (ms):</strong> Time taken for a packet to travel from the client to the server and back.</li>
+            <li><strong>Round trip time variation (ms):</strong> Variation in the round trip time, simulating network jitter.</li>
+            <li><strong>Round trip time asymmetry variation (ms):</strong> Variation in the difference of forward and return trip times, simulating network asymmetry.</li>
+            <li><strong>Simulation speed (ms/s):</strong> Speed at which the simulation progresses.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>NTP Client Parameters:</strong>
+          <ul style="list-style: circle;">
+            <li><strong>Initial time offset of the client (ms):</strong> Initial offset of the client's clock relative to the server's clock.</li>
+            <li><strong>Drift rate of the client (ppm):</strong> Rate at which the client's clock drifts from the server's clock.</li>
+            <li><strong>Synchronization interval (ms):</strong> Time interval between synchronization attempts by the client.</li>
+            <li><strong>Synchronization period (ms):</strong> Duration for which the client synchronizes with the server.</li>
+            <li><strong>Synchronization packet interval (ms):</strong> Time interval between packets sent during synchronization.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>NTP Server Parameters:</strong>
+          <ul style="list-style: circle;">
+            <li><strong>Time error of the server (ms):</strong> Error in the server's clock relative to the actual time.</li>
+            <li><strong>Delay at server before responding to a request (ms):</strong> Delay introduced by the server before responding to a client request.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  </div>
+</div>
+</div>
+
 <!-- Simulation Environment -->
 <section id="simulation">
   <canvas id="arena" width="1024" height="320"></canvas>
@@ -99,6 +219,8 @@
 </section>
 </div>
 
+<!-- Load the scripts -->
+<script src="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/js/script.js"></script>
 <script src="./js/main.js"></script>
 </body>
 </html>
