@@ -87,3 +87,5 @@ Each scenario can be customized by adjusting various parameters. The goal is to 
    **Server Response Delay**
    - Change "Delay at server before responding to a request" to simulate server response delays.
    - **Observation**: Higher response delays can increase the uncertainty in synchronization.
+
+Please use **landscape mode** for this experiment, if you are using a mobile, but rotating the screen.

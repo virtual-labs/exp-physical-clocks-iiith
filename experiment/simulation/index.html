@@ -20,6 +20,7 @@
     <div class="v-collapsible is-size-5">Instructions</div>
     <div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
       <p><strong>Experimental Steps</strong></p>
+      <p>Please use <strong>landscape mode</strong> for this experiment, if you are using a mobile, but rotating the screen. For details on simulation controls, see <strong>Procedure</strong>.</p>
       <ul style="list-style: disc;">
         <li>
           <strong>Select a Scenario:</strong>
@@ -36,96 +37,52 @@
               <strong>Network Trip Time:</strong>
               <ul style="list-style: lower-alpha;">
                 <li>Increase/decrease "Round trip time" to simulate longer or shorter network trip times.</li>
-                <li><strong>Observation:</strong> Longer trip times may result in greater uncertainty in the time synchronization process.</li>
               </ul>
             </li>
             <li>
               <strong>Network Asymmetry:</strong>
               <ul style="list-style: lower-alpha;">
                 <li>Adjust "Round trip time asymmetry variation" to introduce unequal delays in the forward and return paths.</li>
-                <li><strong>Observation:</strong> Higher asymmetry may result in greater discrepancies in calculated offsets.</li>
               </ul>
             </li>
             <li>
               <strong>Network Trip Variation:</strong>
               <ul style="list-style: lower-alpha;">
                 <li>Change "Round trip time variation" to simulate varying network jitter.</li>
-                <li><strong>Observation:</strong> Greater variation can make synchronization less predictable and accurate.</li>
               </ul>
             </li>
             <li>
               <strong>Client Offset:</strong>
               <ul style="list-style: lower-alpha;">
                 <li>Set different values for "Initial time offset of the client" to observe the impact of initial clock differences.</li>
-                <li><strong>Observation:</strong> Initial offsets should be corrected over multiple synchronization attempts.</li>
               </ul>
             </li>
             <li>
               <strong>Client Drift Rate:</strong>
               <ul style="list-style: lower-alpha;">
                 <li>Modify "Drift rate of the client" to simulate clock drift in the client.</li>
-                <li><strong>Observation:</strong> Higher drift rates necessitate more frequent synchronization to maintain accuracy.</li>
               </ul>
             </li>
             <li>
               <strong>Client Sync Interval and Period:</strong>
               <ul style="list-style: lower-alpha;">
                 <li>Adjust "Synchronization interval" and "Synchronization period" to control the synchronization frequency and duration.</li>
-                <li><strong>Observation:</strong> More frequent synchronization can mitigate the effects of clock drift but may increase network load.</li>
               </ul>
             </li>
             <li>
               <strong>Server Response Delay:</strong>
               <ul style="list-style: lower-alpha;">
                 <li>Change "Delay at server before responding to a request" to simulate server response delays.</li>
-                <li><strong>Observation:</strong> Higher response delays can increase the uncertainty in synchronization.</li>
               </ul>
             </li>
           </ul>
         </li>
       </ul>
-      <p><strong>Simulation controls</strong></p>
-      <ul style="list-style: disc;">
-        <li>
-          <strong>Buttons:</strong>
-          <ul style="list-style: circle;">
-            <li><strong>Start Simulation:</strong> Begin the simulation with the selected parameters.</li>
-            <li><strong>Stop Simulation:</strong> Halt the simulation in progress.</li>
-            <li><strong>Synchronize Now:</strong> Force an immediate synchronization between the client and server.</li>
-            <li><strong>Send Packet:</strong> Add a packet to the current synchronization process manually.</li>
-            <li><strong>Adjust Parameters:</strong> Modify the network and client parameters to observe their effects on synchronization.</li>
-            <li><strong>Clear Plot:</strong> Reset the current plot of round-trip time versus synchronization error.</li>
-          </ul>
-        </li>
-        <li>
-          <strong>Network and Simulation Parameters:</strong>
-          <ul style="list-style: circle;">
-            <li><strong>Round trip time (ms):</strong> Time taken for a packet to travel from the client to the server and back.</li>
-            <li><strong>Round trip time variation (ms):</strong> Variation in the round trip time, simulating network jitter.</li>
-            <li><strong>Round trip time asymmetry variation (ms):</strong> Variation in the difference of forward and return trip times, simulating network asymmetry.</li>
-            <li><strong>Simulation speed (ms/s):</strong> Speed at which the simulation progresses.</li>
-          </ul>
-        </li>
-        <li>
-          <strong>NTP Client Parameters:</strong>
-          <ul style="list-style: circle;">
-            <li><strong>Initial time offset of the client (ms):</strong> Initial offset of the client's clock relative to the server's clock.</li>
-            <li><strong>Drift rate of the client (ppm):</strong> Rate at which the client's clock drifts from the server's clock.</li>
-            <li><strong>Synchronization interval (ms):</strong> Time interval between synchronization attempts by the client.</li>
-            <li><strong>Synchronization period (ms):</strong> Duration for which the client synchronizes with the server.</li>
-            <li><strong>Synchronization packet interval (ms):</strong> Time interval between packets sent during synchronization.</li>
-          </ul>
-        </li>
-        <li>
-          <strong>NTP Server Parameters:</strong>
-          <ul style="list-style: circle;">
-            <li><strong>Time error of the server (ms):</strong> Error in the server's clock relative to the actual time.</li>
-            <li><strong>Delay at server before responding to a request (ms):</strong> Delay introduced by the server before responding to a client request.</li>
-          </ul>
-        </li>
-      </ul>
     </div>
   </div>
+  </div>
+  <div class="column" id="rotate-message" txt="c">
+    🔄 Please rotate your device to landscape mode.
   </div>
 </div>
 </div>

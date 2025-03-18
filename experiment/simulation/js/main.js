@@ -12,6 +12,7 @@ const STOP_AUDIO        = document.querySelector('#stop-audio');
 const PAUSE_AUDIO       = document.querySelector('#pause-audio');
 const ADJUST_AUDIO      = document.querySelector('#adjust-audio');
 const SYNCHRONIZE_AUDIO = document.querySelector('#synchronize-audio');
+const ROTATE_MESSAGE    = document.querySelector('#rotate-message');
 const BACKGROUND_IMG    = './images/background.jpeg';
 const PACKET_IMG        = './images/packet-64.png';
 
@@ -96,6 +97,9 @@ function main() {
   requestAnimationFrame(simulationLoop);
   drawButtons();
   drawPlot();
+  // Request user to switch to landscape mode on mobile devices.
+  window.addEventListener("load", checkOrientation);
+  window.addEventListener("resize", checkOrientation);
 }
 main();
 
@@ -526,4 +530,12 @@ function loadImage(url) {
   var img = new Image();
   img.src = url;
   return img;
+}
+
+
+/** Check orientation of the device. */
+function checkOrientation() {
+  var w = window.innerWidth;
+  var h = window.innerHeight;
+  ROTATE_MESSAGE.style.display = h > w? "block" : "none";
 }

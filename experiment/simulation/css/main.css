@@ -19,7 +19,16 @@ body {
   padding: 0 0 6rem 0;
 }
 #plot canvas {
+  width: 100%;
+  height: 24rem;
   margin: 0 20rem;
+}
+@media (max-width: 768px) {
+  #plot canvas {
+    width: 100%;
+    height: 24rem;
+    margin: 0 15rem;
+  }
 }
 
 
@@ -29,4 +38,10 @@ body {
 }
 #buttons select {
   margin-top: 0;
+}
+
+
+/** Rotate message. */
+#rotate-message {
+  display: none;
 }
