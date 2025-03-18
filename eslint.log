@@ -1,0 +1,19 @@
+
+/home/runner/work/exp-physical-clocks-iiith/exp-physical-clocks-iiith/experiment/simulation/js/main.js
+   94:3   warning  'Chart' is not defined                          no-undef
+   94:18  warning  'ChartDataLabels' is not defined                no-undef
+  226:7   warning  'roundTrip' is already defined                  no-redeclare
+  227:7   warning  'timeOffset' is already defined                 no-redeclare
+  228:12  warning  'm' is already defined                          no-redeclare
+  275:10  warning  'onStartSimulation' is defined but never used   no-unused-vars
+  289:10  warning  'onStopSimulation' is defined but never used    no-unused-vars
+  304:10  warning  'onSynchronize' is defined but never used       no-unused-vars
+  315:10  warning  'onSendPacket' is defined but never used        no-unused-vars
+  322:10  warning  'onSelectExperiment' is defined but never used  no-unused-vars
+  381:10  warning  'onAdjustParameters' is defined but never used  no-unused-vars
+  413:10  warning  'onClearPlot' is defined but never used         no-unused-vars
+  490:22  warning  'Chart' is not defined                          no-undef
+  509:30  warning  'context' is defined but never used             no-unused-vars
+
+✖ 14 problems (0 errors, 14 warnings)
+

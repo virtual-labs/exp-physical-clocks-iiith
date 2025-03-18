@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/css/style.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/barecss@1.1.1/css/bare.min.css">
+<link rel="stylesheet" href="./css/main.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<title>NTP Simulation</title>
+</head>
+<body>
+
+<!-- Instructions -->
+<div class="container">
+<div class="columns is-centered">
+  <div class="column">
+  <div class="v-collapsible-instruction-container v-instruction-container">
+    <div class="v-collapsible is-size-5">Instructions</div>
+    <div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
+      <p><strong>Experimental Steps</strong></p>
+      <p>Please use <strong>landscape mode</strong> for this experiment, if you are using a mobile, but rotating the screen. For details on simulation controls, see <strong>Procedure</strong>.</p>
+      <ul style="list-style: disc;">
+        <li>
+          <strong>Select a Scenario:</strong>
+          <ul style="list-style: circle;">
+            <li>Choose a scenario from the dropdown menu to simulate different network configurations.</li>
+            <li>The scenarios range from local networks to globally distributed networks with varying levels of noise and asymmetry.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Adjust Parameters and Observe Effects:</strong>
+          <ul style="list-style: circle;">
+            <li>Use the control form to modify the following parameters individually and observe their effects on synchronization. The provided figure will help visualize the changes.</li>
+            <li>
+              <strong>Network Trip Time:</strong>
+              <ul style="list-style: lower-alpha;">
+                <li>Increase/decrease "Round trip time" to simulate longer or shorter network trip times.</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Network Asymmetry:</strong>
+              <ul style="list-style: lower-alpha;">
+                <li>Adjust "Round trip time asymmetry variation" to introduce unequal delays in the forward and return paths.</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Network Trip Variation:</strong>
+              <ul style="list-style: lower-alpha;">
+                <li>Change "Round trip time variation" to simulate varying network jitter.</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Client Offset:</strong>
+              <ul style="list-style: lower-alpha;">
+                <li>Set different values for "Initial time offset of the client" to observe the impact of initial clock differences.</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Client Drift Rate:</strong>
+              <ul style="list-style: lower-alpha;">
+                <li>Modify "Drift rate of the client" to simulate clock drift in the client.</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Client Sync Interval and Period:</strong>
+              <ul style="list-style: lower-alpha;">
+                <li>Adjust "Synchronization interval" and "Synchronization period" to control the synchronization frequency and duration.</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Server Response Delay:</strong>
+              <ul style="list-style: lower-alpha;">
+                <li>Change "Delay at server before responding to a request" to simulate server response delays.</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  </div>
+  <div class="column" id="rotate-message" txt="c">
+    🔄 Please rotate your device to landscape mode.
+  </div>
+</div>
+</div>
+
+<!-- Simulation Environment -->
+<section id="simulation">
+  <canvas id="arena" width="1024" height="320"></canvas>
+  <audio id="start-audio" src="https://ia801000.us.archive.org/35/items/windowsxpstartup_201910/Windows%20XP%20Startup.mp3"></audio>
+  <audio id="stop-audio" src="https://ia801000.us.archive.org/35/items/windowsxpstartup_201910/Windows%20XP%20Shutdown.mp3"></audio>
+  <audio id="pause-audio" src="https://ia801000.us.archive.org/35/items/windowsxpstartup_201910/notify.mp3"></audio>
+  <audio id="adjust-audio" src="https://ia801000.us.archive.org/35/items/windowsxpstartup_201910/chimes.mp3"></audio>
+  <audio id="synchronize-audio" src="https://ia801000.us.archive.org/35/items/windowsxpstartup_201910/Windows%20XP%20Logon%20Sound.mp3"></audio>
+</section>
+
+<!-- Controls -->
+<section id="controls">
+<form>
+  <div id="buttons">
+    <grid>
+      <div col="1/4"><button full id="start-simulation" primary onclick="onStartSimulation()">Pause Simulation</button></div>
+      <div col="1/4"><button full id="stop-simulation" onclick="onStopSimulation()">Stop Simulation</button></div>
+      <div col="1/4"><button full id="synchronize" onclick="onSynchronize()">Synchronize Now</button></div>
+      <div col="1/4"><button full id="send-packet" onclick="onSendPacket()">Send Packet</button></div>
+    </grid>
+    <grid>
+      <div col="2/4">
+      <select id="select-experiment" onchange="onSelectExperiment()">
+        <option disabled selected>Select an Experiment</option>
+        <option value="lan-x">Local Area Network</option>
+        <option value="lan-n">Local Area Network (noisy)</option>
+        <option value="lan-a">Local Area Network (asymmetric)</option>
+        <option value="man-n">Metropolitan Area Network (noisy)</option>
+        <option value="man-a">Metropolitan Area Network (asymmetric)</option>
+        <option value="wan-n">Wide Area Network (noisy)</option>
+        <option value="wan-a">Wide Area Network (asymmetric)</option>
+        <option value="gan-n">Globally Distributed Network (noisy)</option>
+        <option value="gan-a">Globally Distributed Network (asymmetric)</option>
+        <option value="usr-x">Custom</option>
+      </select>
+      </div>
+      <div col="1/4"><button full id="adjust-parameters" onclick="onAdjustParameters()">Adjust Parameters</button></div>
+      <div col="1/4"><button full id="clear-plot" onclick="onClearPlot()">Clear Plot</button></div>
+    </grid>
+  </div>
+  <div id="plot">
+    <canvas id="plot-offset" width="320" height="320"></canvas>
+  </div>
+  <grid>
+    <div col="1/2">
+      <h4>Network and Simulation Parameters</h4>
+      <label>Round trip time (ms)</label>
+      <input type="text" name="network-trip" placeholder="100">
+      <label>Round trip asymmetry variation (ms)</label>
+      <input type="text" name="network-asymmetry" placeholder="20">
+    </div>
+    <div col="1/2">
+      <h4>...</h4>
+      <label>Round trip time variation (ms)</label>
+      <input type="text" name="network-trip-variation" placeholder="20">
+      <label>Simulation speed (ms/s)</label>
+      <input type="text" name="simulation-speed" placeholder="10">
+    </div>
+    <div col="1/2">
+    <h4>NTP Client Parameters</h4>
+    <label>Initial time offset of the client (ms)</label>
+    <input type="text" name="client-offset" placeholder="10">
+    <label>Synchronization interval (ms)</label>
+    <input type="text" name="client-sync-interval" placeholder="1000">
+    <label>Synchronization packet interval (ms)</label>
+    <input type="text" name="client-packet-interval" placeholder="10">
+  </div>
+  <div col="1/2">
+    <h4>...</h4>
+    <label>Drift rate of the client (ppm)</label>
+    <input type="text" name="client-drift-rate" placeholder="0">
+    <label>Synchronization period (ms)</label>
+    <input type="text" name="client-sync-period" placeholder="100">
+  </div>
+  <div col="1/2">
+    <h4>NTP Server Parameters</h4>
+    <label>Time error of the server (ms)</label>
+    <input type="text" name="server-error" placeholder="0">
+  </div>
+  <div col="1/2">
+    <h4>...</h4>
+    <label>Max server delay before responding to request (ms)</label>
+    <input type="text" name="server-response-delay" placeholder="10">
+  </div>
+  </grid>
+</form>
+</section>
+</div>
+
+<!-- Load the scripts -->
+<script src="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/js/script.js"></script>
+<script src="./js/main.js"></script>
+<script src="../assets/js/iframeResize.js"></script>
+        
+        </body>
+</html>
+
+
+<!-- <a href="https://www.flaticon.com/free-icons/computer" title="computer icons">Computer icons created by Freepik - Flaticon</a> -->
+<!-- <a href="https://www.flaticon.com/free-icons/mac" title="mac icons">Mac icons created by xnimrodx - Flaticon</a> -->
+<!-- <a href="https://www.flaticon.com/free-icons/hub" title="hub icons">Hub icons created by Freepik - Flaticon</a> -->
+<!-- <a href="https://www.flaticon.com/free-icons/packet" title="packet icons">Packet icons created by Uniconlabs - Flaticon</a> -->
