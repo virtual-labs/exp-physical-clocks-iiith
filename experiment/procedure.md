@@ -1,4 +1,17 @@
-This experimental procedure outlines how to use the provided simulation to understand Network Time Protocol (NTP) concepts. In the simulation, we explore the effects on time synchronization between a client and a server in a number of scenarios. These include:
+The user can interact with the simulation to understand clock synchronization.
+
+### Controls:
+*   **Start/Stop Time:** Start or stop the simulation time.
+*   **Client Clock Skew:** Adjust the skew of the client's clock.
+*   **Network Delay:** Introduce a delay in the network communication between the client and server.
+*   **Send Sync Request:** Manually send a synchronization request from the client to the server.
+
+### Procedure:
+1.  Start the simulation. Observe the client and server clocks.
+2.  Introduce a skew in the client's clock and observe the divergence.
+3.  Send a synchronization request and observe how Cristian's algorithm corrects the client's clock.
+4.  Introduce network delay and observe its impact on the synchronization accuracy.
+5.  Experiment with different skew and delay values to understand their effects.
 - Local Area Network (LAN)
 - Local Area Network (noisy)
 - Local Area Network (asymmetric)

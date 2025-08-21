@@ -1,90 +1,103 @@
 {
-  "version": 2.0,
   "questions": [
     {
-      "question": "How often does NTP typically synchronize clocks in a well-configured system?",
-      "answers": {
-        "a": "Every second",
-        "b": "Every minute",
-        "c": "Every hour",
-        "d": "Every few minutes to several hours, depending on the stability"
-      },
-      "explanations": {
-        "a": "Incorrect: This is too frequent.",
-        "b": "Incorrect: This may be too frequent for many systems.",
-        "c": "Incorrect: This is not typically frequent enough.",
-        "d": "Correct: NTP adjusts the synchronization frequency based on the stability of the network and the clocks."
-      },
-      "correctAnswer": "d",
-      "difficulty": "beginner"
+      "question": "What is the primary challenge in synchronizing physical clocks in a distributed system?",
+      "options": [
+        "The clocks are too fast",
+        "The clocks are too slow",
+        "The clocks drift at different rates",
+        "The clocks are not accessible"
+      ],
+      "answer": "The clocks drift at different rates",
+      "difficulty": "easy"
     },
     {
-      "question": "Which of the following can impact the accuracy of NTP synchronization?",
-      "answers": {
-        "a": "Network delay variability",
-        "b": "The size of the data packets",
-        "c": "The number of network nodes",
-        "d": "The operating system used"
-      },
-      "explanations": {
-        "a": "Correct: Network delay variability can significantly impact NTP accuracy.",
-        "b": "Incorrect: The size of data packets is not a major factor in NTP accuracy.",
-        "c": "Incorrect: The number of network nodes does not directly affect NTP accuracy.",
-        "d": "Incorrect: While different operating systems may handle NTP differently, it is not the primary factor affecting accuracy."
-      },
-      "correctAnswer": "a",
-      "difficulty": "beginner"
+      "question": "In the context of clock synchronization, what is a 'time server'?",
+      "options": [
+        "A server that serves web pages",
+        "A server that provides a reference time",
+        "A server that stores files",
+        "A server that runs a database"
+      ],
+      "answer": "A server that provides a reference time",
+      "difficulty": "easy"
     },
     {
-      "question": "What is the role of the 'offset' in NTP?",
-      "answers": {
-        "a": "It indicates the difference in the current time and the correct time",
-        "b": "It measures the round-trip delay",
-        "c": "It shows the amount of data transferred",
-        "d": "It encrypts the time packets"
-      },
-      "explanations": {
-        "a": "Correct: Offset is the difference between the local clock time and the reference clock time.",
-        "b": "Incorrect: This is the role of delay, not offset.",
-        "c": "Incorrect: Offset does not relate to data transfer.",
-        "d": "Incorrect: Offset does not involve encryption."
-      },
-      "correctAnswer": "a",
-      "difficulty": "beginner"
+      "question": "What is the main idea behind Cristian's algorithm?",
+      "options": [
+        "To slow down all clocks",
+        "To speed up all clocks",
+        "To adjust a client's clock based on a server's time and network delay",
+        "To stop all clocks"
+      ],
+      "answer": "To adjust a client's clock based on a server's time and network delay",
+      "difficulty": "easy"
     },
     {
-      "question": "In the context of NTP, what is the significance of the 'intersection algorithm'?",
-      "answers": {
-        "a": "It improves the encryption of time packets",
-        "b": "It helps in selecting the best time source from multiple servers",
-        "c": "It compresses time synchronization data",
-        "d": "It measures the delay of time packets"
-      },
-      "explanations": {
-        "a": "Incorrect: The 'intersection algorithm' is not related to encryption.",
-        "b": "Correct: The 'intersection algorithm' is used in NTP to select the best time source when multiple servers provide time data.",
-        "c": "Incorrect: The 'intersection algorithm' does not compress data.",
-        "d": "Incorrect: The 'intersection algorithm' is not used to measure delay."
-      },
-      "correctAnswer": "b",
-      "difficulty": "beginner"
+      "question": "How does NTP handle the variability of network delay?",
+      "options": [
+        "It ignores it",
+        "It assumes a constant delay",
+        "It uses statistical methods to filter measurements",
+        "It asks the user to input the delay"
+      ],
+      "answer": "It uses statistical methods to filter measurements",
+      "difficulty": "intermediate"
     },
     {
-      "question": "How does NTP handle leap seconds to ensure accurate timekeeping?",
-      "answers": {
-        "a": "By pausing the clock for one second",
-        "b": "By speeding up or slowing down the clock gradually",
-        "c": "By introducing an offset at the beginning of the next hour",
-        "d": "By inserting or deleting a second at the specified time"
-      },
-      "explanations": {
-        "a": "Incorrect: NTP does not pause the clock.",
-        "b": "Incorrect: NTP does not gradually speed up or slow down the clock for leap seconds.",
-        "c": "Incorrect: NTP does not adjust the offset at the beginning of the next hour.",
-        "d": "Correct: NTP handles leap seconds by inserting (adding) or deleting (subtracting) a second at the specified time to adjust the clocks accordingly."
-      },
-      "correctAnswer": "d",
-      "difficulty": "beginner"
+      "question": "What is the purpose of the hierarchical structure of NTP servers?",
+      "options": [
+        "To make the system more complex",
+        "To distribute the load and improve accuracy",
+        "To make the system less reliable",
+        "To make the system more expensive"
+      ],
+      "answer": "To distribute the load and improve accuracy",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "If a client receives a timestamp from a server, what else does it need to consider before setting its clock?",
+      "options": [
+        "The server's location",
+        "The network round-trip time",
+        "The server's uptime",
+        "The number of users on the server"
+      ],
+      "answer": "The network round-trip time",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Why is it generally not a good idea to simply set a client's clock backward if it's ahead of the server's time?",
+      "options": [
+        "It can cause events to appear to happen in the past",
+        "It can damage the clock hardware",
+        "It can cause the server to crash",
+        "It can violate the laws of physics"
+      ],
+      "answer": "It can cause events to appear to happen in the past",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "How can a system handle the issue of a clock being set backward?",
+      "options": [
+        "By always setting the clock forward",
+        "By gradually slowing down the clock until it's correct",
+        "By ignoring the server's time",
+        "By shutting down the system"
+      ],
+      "answer": "By gradually slowing down the clock until it's correct",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "What is the trade-off between synchronization frequency and network traffic?",
+      "options": [
+        "More frequent synchronization leads to less traffic",
+        "More frequent synchronization leads to more traffic",
+        "There is no trade-off",
+        "The trade-off depends on the time of day"
+      ],
+      "answer": "More frequent synchronization leads to more traffic",
+      "difficulty": "advanced"
     }
   ]
 }
