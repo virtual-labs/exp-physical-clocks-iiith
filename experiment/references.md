@@ -1,4 +1,6 @@
-### On Physical Clocks
+- Tanenbaum, A. S., & Van Steen, M. (2007). *Distributed Systems: Principles and Paradigms*. Pearson Prentice Hall.
+- Lamport, L. (1978). Time, clocks, and the ordering of events in a distributed system. *Communications of the ACM*, *21*(7), 558-565.
+- Mills, D. L. (1991). Internet time synchronization: The network time protocol. *IEEE Transactions on communications*, *39*(10), 1482-1493.
 
 - [Physical and Logical Clocks | Dilum Bandara](https://www.slideshare.net/DilumBandara/physical-and-logical-clocks)
 - [Time and Clocks | Florida International University](https://users.cs.fiu.edu/~cpoellab/teaching/cse40463/slides2.pdf)
