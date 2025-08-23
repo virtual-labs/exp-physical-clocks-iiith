@@ -1,14 +1,14 @@
-## Clock Synchronization in Distributed Systems
+### Clock Synchronization in Distributed Systems
 
 In a distributed system, multiple processes running on different computers need to coordinate their actions. This often requires a common understanding of time. However, each computer has its own physical clock, which is a hardware device that counts oscillations of a crystal. These clocks are not perfectly accurate and tend to drift over time, leading to discrepancies between the clocks of different computers. This is known as **clock skew**.
 
-### Cristian's Algorithm
+#### Cristian's Algorithm
 
 Cristian's algorithm is a simple method for synchronizing the clock of a client machine with a time server. The client sends a request to the server, which responds with its current time. The client then sets its clock to the server's time, but it must also account for the round-trip time of the request.
 
 The client measures the time it takes for the request to travel to the server and back (T_round). It assumes the one-way delay is approximately T_round / 2. So, when the client receives the server's time (T_server), it sets its own clock to T_server + T_round / 2.
 
-### Network Time Protocol (NTP)
+#### Network Time Protocol (NTP)
 
 NTP is a more sophisticated protocol for clock synchronization. It uses a hierarchical system of time servers, with the most accurate clocks at the top (stratum 1). These servers are typically synchronized with atomic clocks or GPS. Lower-level servers (stratum 2, 3, etc.) synchronize with higher-level servers.
 
