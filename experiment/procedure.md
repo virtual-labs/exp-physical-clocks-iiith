@@ -1,12 +1,13 @@
+### Procedure
 The user can interact with the simulation to understand clock synchronization.
 
-### Controls:
+#### Controls:
 *   **Start/Stop Time:** Start or stop the simulation time.
 *   **Client Clock Skew:** Adjust the skew of the client's clock.
 *   **Network Delay:** Introduce a delay in the network communication between the client and server.
 *   **Send Sync Request:** Manually send a synchronization request from the client to the server.
 
-### Procedure:
+#### Steps:
 1.  Start the simulation. Observe the client and server clocks.
 2.  Introduce a skew in the client's clock and observe the divergence.
 3.  Send a synchronization request and observe how Cristian's algorithm corrects the client's clock.

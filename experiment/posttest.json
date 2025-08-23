@@ -1,102 +1,157 @@
 {
+  "version": 2.0,
   "questions": [
     {
       "question": "What is the primary challenge in synchronizing physical clocks in a distributed system?",
-      "options": [
-        "The clocks are too fast",
-        "The clocks are too slow",
-        "The clocks drift at different rates",
-        "The clocks are not accessible"
-      ],
-      "answer": "The clocks drift at different rates",
-      "difficulty": "easy"
+      "answers": {
+        "a": "The clocks are too fast",
+        "b": "The clocks are too slow",
+        "c": "The clocks drift at different rates",
+        "d": "The clocks are not accessible"
+      },
+      "explanations": {
+        "a": "Incorrect. While a clock can be fast, the core problem is the difference in rates.",
+        "b": "Incorrect. While a clock can be slow, the core problem is the difference in rates.",
+        "c": "Correct. Each clock has its own crystal oscillator, which runs at a slightly different rate, causing them to drift apart over time.",
+        "d": "Incorrect. The clocks are accessible; the problem is their lack of agreement."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
     },
     {
       "question": "In the context of clock synchronization, what is a 'time server'?",
-      "options": [
-        "A server that serves web pages",
-        "A server that provides a reference time",
-        "A server that stores files",
-        "A server that runs a database"
-      ],
-      "answer": "A server that provides a reference time",
-      "difficulty": "easy"
+      "answers": {
+        "a": "A server that serves web pages",
+        "b": "A server that provides a reference time",
+        "c": "A server that stores files",
+        "d": "A server that runs a database"
+      },
+      "explanations": {
+        "a": "Incorrect. That is a web server.",
+        "b": "Correct. A time server is a machine that provides an accurate time source for other machines on the network.",
+        "c": "Incorrect. That is a file server.",
+        "d": "Incorrect. That is a database server."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
     },
     {
       "question": "What is the main idea behind Cristian's algorithm?",
-      "options": [
-        "To slow down all clocks",
-        "To speed up all clocks",
-        "To adjust a client's clock based on a server's time and network delay",
-        "To stop all clocks"
-      ],
-      "answer": "To adjust a client's clock based on a server's time and network delay",
-      "difficulty": "easy"
+      "answers": {
+        "a": "To slow down all clocks",
+        "b": "To speed up all clocks",
+        "c": "To adjust a client's clock based on a server's time and network delay",
+        "d": "To stop all clocks"
+      },
+      "explanations": {
+        "a": "Incorrect. The goal is synchronization, not just slowing down clocks.",
+        "b": "Incorrect. The goal is synchronization, not just speeding up clocks.",
+        "c": "Correct. Cristian's algorithm involves a client requesting the time from a server and adjusting its own clock, accounting for the round-trip time.",
+        "d": "Incorrect. The algorithm does not stop clocks."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
     },
     {
       "question": "How does NTP handle the variability of network delay?",
-      "options": [
-        "It ignores it",
-        "It assumes a constant delay",
-        "It uses statistical methods to filter measurements",
-        "It asks the user to input the delay"
-      ],
-      "answer": "It uses statistical methods to filter measurements",
+      "answers": {
+        "a": "It ignores it",
+        "b": "It assumes a constant delay",
+        "c": "It uses statistical methods to filter measurements",
+        "d": "It asks the user to input the delay"
+      },
+      "explanations": {
+        "a": "Incorrect. Ignoring delay would lead to inaccurate synchronization.",
+        "b": "Incorrect. Assuming a constant delay is not robust enough for real-world networks.",
+        "c": "Correct. NTP collects multiple time samples and uses statistical algorithms to filter out outliers and estimate the actual offset and delay.",
+        "d": "Incorrect. NTP is an automated protocol."
+      },
+      "correctAnswer": "c",
       "difficulty": "intermediate"
     },
     {
       "question": "What is the purpose of the hierarchical structure of NTP servers?",
-      "options": [
-        "To make the system more complex",
-        "To distribute the load and improve accuracy",
-        "To make the system less reliable",
-        "To make the system more expensive"
-      ],
-      "answer": "To distribute the load and improve accuracy",
+      "answers": {
+        "a": "To make the system more complex",
+        "b": "To distribute the load and improve accuracy",
+        "c": "To make the system less reliable",
+        "d": "To make the system more expensive"
+      },
+      "explanations": {
+        "a": "Incorrect. The hierarchy serves a specific purpose.",
+        "b": "Correct. The hierarchy of strata allows time to be distributed from a few highly accurate sources (stratum 1) to a large number of clients, improving scalability and accuracy.",
+        "c": "Incorrect. The hierarchy is designed to improve reliability.",
+        "d": "Incorrect. The hierarchical structure is a cost-effective way to provide time to many clients."
+      },
+      "correctAnswer": "b",
       "difficulty": "intermediate"
     },
     {
       "question": "If a client receives a timestamp from a server, what else does it need to consider before setting its clock?",
-      "options": [
-        "The server's location",
-        "The network round-trip time",
-        "The server's uptime",
-        "The number of users on the server"
-      ],
-      "answer": "The network round-trip time",
+      "answers": {
+        "a": "The server's location",
+        "b": "The network round-trip time",
+        "c": "The server's uptime",
+        "d": "The number of users on the server"
+      },
+      "explanations": {
+        "a": "Incorrect. The physical location is not directly used in the calculation.",
+        "b": "Correct. The client needs to estimate the time it took for the server's timestamp to reach it, which is typically half the round-trip time.",
+        "c": "Incorrect. Server uptime is not relevant to the time calculation.",
+        "d": "Incorrect. The number of users is not relevant to the time calculation."
+      },
+      "correctAnswer": "b",
       "difficulty": "intermediate"
     },
     {
       "question": "Why is it generally not a good idea to simply set a client's clock backward if it's ahead of the server's time?",
-      "options": [
-        "It can cause events to appear to happen in the past",
-        "It can damage the clock hardware",
-        "It can cause the server to crash",
-        "It can violate the laws of physics"
-      ],
-      "answer": "It can cause events to appear to happen in the past",
+      "answers": {
+        "a": "It can cause events to appear to happen in the past",
+        "b": "It can damage the clock hardware",
+        "c": "It can cause the server to crash",
+        "d": "It can violate the laws of physics"
+      },
+      "explanations": {
+        "a": "Correct. Jumping time backward can violate the monotonicity of time, causing issues for applications that rely on increasing timestamps, such as databases and build systems. For more details, see <a href='https://www.nist.gov/pml/time-and-frequency-division/time-realization/leap-seconds' target='_blank'>Leap Seconds</a>.",
+        "b": "Incorrect. This is a software issue, not a hardware one.",
+        "c": "Incorrect. This would affect the client, not the server.",
+        "d": "Incorrect. While it's confusing, it doesn't violate the laws of physics."
+      },
+      "correctAnswer": "a",
       "difficulty": "advanced"
     },
     {
       "question": "How can a system handle the issue of a clock being set backward?",
-      "options": [
-        "By always setting the clock forward",
-        "By gradually slowing down the clock until it's correct",
-        "By ignoring the server's time",
-        "By shutting down the system"
-      ],
-      "answer": "By gradually slowing down the clock until it's correct",
+      "answers": {
+        "a": "By always setting the clock forward",
+        "b": "By gradually slowing down the clock until it's correct",
+        "c": "By ignoring the server's time",
+        "d": "By shutting down the system"
+      },
+      "explanations": {
+        "a": "Incorrect. This is not possible if the clock is ahead.",
+        "b": "Correct. This process, known as 'slewing', maintains monotonic time by adjusting the clock's frequency until it matches the correct time.",
+        "c": "Incorrect. This would defeat the purpose of synchronization.",
+        "d": "Incorrect. This is too drastic a measure."
+      },
+      "correctAnswer": "b",
       "difficulty": "advanced"
     },
     {
       "question": "What is the trade-off between synchronization frequency and network traffic?",
-      "options": [
-        "More frequent synchronization leads to less traffic",
-        "More frequent synchronization leads to more traffic",
-        "There is no trade-off",
-        "The trade-off depends on the time of day"
-      ],
-      "answer": "More frequent synchronization leads to more traffic",
+      "answers": {
+        "a": "More frequent synchronization leads to less traffic",
+        "b": "More frequent synchronization leads to more traffic",
+        "c": "There is no trade-off",
+        "d": "The trade-off depends on the time of day"
+      },
+      "explanations": {
+        "a": "Incorrect. More synchronization means more network packets.",
+        "b": "Correct. Synchronizing more often keeps clocks more accurate but generates more network traffic. System administrators must balance the need for accuracy with the cost of network overhead.",
+        "c": "Incorrect. There is a clear trade-off.",
+        "d": "Incorrect. The trade-off is fundamental and doesn't depend on the time of day."
+      },
+      "correctAnswer": "b",
       "difficulty": "advanced"
     }
   ]
