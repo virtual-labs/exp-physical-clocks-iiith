@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NTP Clock Synchronization Simulation</title>
+    <title>Peer-to-Peer Clock Synchronization Simulation</title>
     <link rel="stylesheet" href="styles.css">
     
 </head>
@@ -11,7 +11,7 @@
     <div class="app-container">
         <header class="header">
             <h1>
-                🕰️ NTP Clock Synchronization
+                🕰️ Peer-to-Peer Clock Synchronization
                 <div class="status-indicator"></div>
             </h1>
             <div style="font-size: 0.9em; opacity: 0.9;">
@@ -20,6 +20,13 @@
         </header>
 
         <div class="controls-panel">
+            <div class="scenario-section">
+                <h3>Mode</h3>
+                <div class="mode-selector">
+                    <button class="mode-btn active" id="autoModeBtn">Automatic</button>
+                    <button class="mode-btn" id="manualModeBtn">Manual</button>
+                </div>
+            </div>
             <div class="scenario-section">
                 <h3>Network Scenario</h3>
                 <select id="scenario" class="scenario-select">
@@ -61,45 +68,26 @@
             </div>
 
             <div class="parameter-group">
-                <h4>NTP Client Parameters</h4>
+                <h4>Peer Parameters</h4>
                 <div class="parameter-row">
-                    <label>Initial offset (ms):</label>
-                    <input type="number" id="client_offset" value="1000" min="-5000" max="5000">
-                    <span class="value-display" id="client_offset-display">1000</span>
+                    <label>Peer 2 Initial Offset (ms):</label>
+                    <input type="number" id="peer2_offset" value="1000" min="-5000" max="5000">
+                    <span class="value-display" id="peer2_offset-display">1000</span>
                 </div>
                 <div class="parameter-row">
-                    <label>Drift rate (ppm):</label>
-                    <input type="number" id="drift_rate" value="10" min="-100" max="100">
-                    <span class="value-display" id="drift_rate-display">10</span>
+                    <label>Peer 1 Drift (ppm):</label>
+                    <input type="number" id="peer1_drift" value="10" min="-100" max="100">
+                    <span class="value-display" id="peer1_drift-display">10</span>
                 </div>
                 <div class="parameter-row">
-                    <label>Sync interval (ms):</label>
+                    <label>Peer 2 Drift (ppm):</label>
+                    <input type="number" id="peer2_drift" value="20" min="-100" max="100">
+                    <span class="value-display" id="peer2_drift-display">20</span>
+                </div>
+                <div class="parameter-row">
+                    <label>Sync Interval (ms):</label>
                     <input type="number" id="sync_interval" value="5000" min="1000" max="60000">
                     <span class="value-display" id="sync_interval-display">5000</span>
-                </div>
-                <div class="parameter-row">
-                    <label>Sync period (ms):</label>
-                    <input type="number" id="sync_period" value="1000" min="100" max="10000">
-                    <span class="value-display" id="sync_period-display">1000</span>
-                </div>
-                <div class="parameter-row">
-                    <label>Packet interval (ms):</label>
-                    <input type="number" id="packet_interval" value="200" min="50" max="2000">
-                    <span class="value-display" id="packet_interval-display">200</span>
-                </div>
-            </div>
-
-            <div class="parameter-group">
-                <h4>NTP Server Parameters</h4>
-                <div class="parameter-row">
-                    <label>Server error (ms):</label>
-                    <input type="number" id="server_error" value="5" min="0" max="100">
-                    <span class="value-display" id="server_error-display">5</span>
-                </div>
-                <div class="parameter-row">
-                    <label>Server delay (ms):</label>
-                    <input type="number" id="server_delay" value="10" min="0" max="500">
-                    <span class="value-display" id="server_delay-display">10</span>
                 </div>
             </div>
 
@@ -107,7 +95,6 @@
                 <button class="control-btn btn-start" id="startBtn">▶ Start Simulation</button>
                 <button class="control-btn btn-stop" id="stopBtn">⏹ Stop Simulation</button>
                 <button class="control-btn btn-sync" id="syncBtn">🔄 Synchronize Now</button>
-                <button class="control-btn btn-packet" id="packetBtn">📡 Send Packet</button>
                 <button class="control-btn btn-clear" id="clearBtn">🗑 Clear Chart</button>
             </div>
         </div>
@@ -115,29 +102,29 @@
         <div class="experiment-area">
             <button class="info-btn" id="infoBtn" onclick="showInfo()" title="Information Guide (F1 or Ctrl+H)">ℹ️</button>
             <div class="clocks-container">
-                <div class="clock server-clock">
-                    <h3>NTP Server</h3>
-                    <div class="time" id="serverTime">00:00:00.000</div>
+                <div class="clock peer-clock">
+                    <h3>Peer 1</h3>
+                    <div class="time" id="peer1Time">00:00:00.000</div>
                     <div class="info">
-                        Stratum: 1<br>
-                        Error: <span id="serverErrorDisplay">5ms</span>
+                        Drift: <span id="peer1DriftDisplay">10ppm</span><br>
+                        Status: <span id="peer1Status">Normal</span>
                     </div>
                 </div>
-                <div class="clock client-clock">
-                    <h3>NTP Client</h3>
-                    <div class="time" id="clientTime">00:00:00.000</div>
+                <div class="clock peer-clock">
+                    <h3>Peer 2</h3>
+                    <div class="time" id="peer2Time">00:00:00.000</div>
                     <div class="info">
-                        Offset: <span id="clientOffsetDisplay">1000ms</span><br>
-                        Drift: <span id="clientDriftDisplay">10ppm</span>
+                        Drift: <span id="peer2DriftDisplay">20ppm</span><br>
+                        Status: <span id="peer2Status">Normal</span>
                     </div>
                 </div>
             </div>
 
             <div class="network-visualization">
-                <div class="network-node server-node">SERVER</div>
+                <div class="network-node peer-node">PEER 1</div>
                 <div class="network-path"></div>
                 <div class="packet" id="packet"></div>
-                <div class="network-node client-node">CLIENT</div>
+                <div class="network-node peer-node">PEER 2</div>
             </div>
 
             <div class="chart-container">
@@ -150,7 +137,7 @@
             <div class="status-section">
                 <h4>Activity Logs</h4>
                 <div class="log-section" id="logContainer">
-                    <div class="log-entry log-info">[INFO] NTP Simulation initialized</div>
+                    <div class="log-entry log-info">[INFO] Peer-to-Peer Sync Simulation initialized</div>
                     <div class="log-entry log-info">[INFO] Ready to start synchronization</div>
                 </div>
             </div>
@@ -160,6 +147,10 @@
                 <div class="status-item">
                     <div class="label">Current Offset</div>
                     <div class="value" id="currentOffset">1000 ms</div>
+                </div>
+                <div class="status-item">
+                    <div class="label">Average Offset</div>
+                    <div class="value" id="avgOffset">0 ms</div>
                 </div>
                 <div class="status-item">
                     <div class="label">Round-Trip Delay</div>
@@ -178,28 +169,11 @@
                     <div class="value" id="lastSync">Never</div>
                 </div>
             </div>
-
-            <div class="metrics-section">
-                <h4>Performance Metrics</h4>
-                <div class="metric-item">
-                    <div class="label">Average Offset</div>
-                    <div class="value" id="avgOffset">0 ms</div>
-                </div>
-                <div class="metric-item">
-                    <div class="label">Offset Std Dev</div>
-                    <div class="value" id="offsetStdDev">0 ms</div>
-                </div>
-                <div class="metric-item">
-                    <div class="label">Sync Accuracy</div>
-                    <div class="value" id="syncAccuracy">0%</div>
-                </div>
-                <div class="metric-item">
-                    <div class="label">Network Jitter</div>
-                    <div class="value" id="networkJitter">0 ms</div>
-                </div>
-            </div>
         </div>
     </div>
+
+    <!-- Slowdown Popup -->
+    <div class="popup" id="slowdownPopup"></div>
 
     <!-- Mobile Portrait Orientation Overlay -->
     <div class="rotate-device-overlay">
@@ -212,28 +186,24 @@
     <div class="modal-overlay" id="infoModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>🕰️ NTP Clock Synchronization - Complete Guide</h2>
+                <h2>🕰️ Peer-to-Peer Clock Synchronization - Guide</h2>
                 <button class="modal-close" onclick="hideInfo()">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="guide-section">
-                    <h3>🎯 What is NTP?</h3>
-                    <p><strong>Network Time Protocol (NTP)</strong> is a networking protocol for clock synchronization between computer systems over packet-switched, variable-latency data networks. NTP is intended to synchronize all participating computers to within a few milliseconds of Coordinated Universal Time (UTC).</p>
-                    <ul>
-                        <li><strong>Stratum Levels:</strong> Hierarchy of time sources (0-15)</li>
-                        <li><strong>Precision:</strong> Can achieve sub-millisecond accuracy on LANs</li>
-                        <li><strong>Robustness:</strong> Handles network delays, jitter, and clock drift</li>
-                    </ul>
+                    <h3>🎯 What is Peer-to-Peer Synchronization?</h3>
+                    <p>In this model, there is no central time server. Peers synchronize with each other to agree on a common time. This simulation uses a method where the peer with the faster clock slows down its clock rate temporarily to allow the slower peer to catch up.</p>
                 </div>
 
                 <div class="guide-section">
-                    <h3>🧮 NTP Algorithm Fundamentals</h3>
-                    <p>NTP uses a <strong>four-timestamp exchange</strong> to calculate clock offset and network delay:</p>
+                    <h3>🧮 Synchronization Algorithm</h3>
+                    <p>The simulation uses a simplified algorithm inspired by NTP:</p>
                     <ul>
-                        <li><strong>T₀:</strong> Client originate timestamp (when request is sent)</li>
-                        <li><strong>T₁:</strong> Server receive timestamp (when server receives request)</li>
-                        <li><strong>T₂:</strong> Server transmit timestamp (when server sends response)</li>
-                        <li><strong>T₃:</strong> Client receive timestamp (when client receives response)</li>
+                        <li>One peer sends a burst of packets to the other.</li>
+                        <li>For each packet, the round-trip time (RTT) and clock offset are calculated.</li>
+                        <li>The measurement with the <strong>smallest RTT</strong> is considered the most accurate.</li>
+                        <li>The offset from this best measurement is used to determine which peer is faster.</li>
+                        <li>The faster peer's clock is then slowed down by a small factor until the clocks are aligned.</li>
                     </ul>
                     <div class="formula-box">
                         <strong>Clock Offset:</strong> θ = ((T₁ - T₀) + (T₂ - T₃)) / 2<br>
@@ -242,111 +212,27 @@
                 </div>
 
                 <div class="guide-section">
-                    <h3>🌐 Network Scenarios</h3>
-                    <ul>
-                        <li><strong>LAN:</strong> Low latency (1-10ms), minimal jitter, high precision</li>
-                        <li><strong>MAN:</strong> Metropolitan networks (10-50ms), moderate jitter</li>
-                        <li><strong>WAN:</strong> Wide area networks (50-200ms), variable delays</li>
-                        <li><strong>Global:</strong> Intercontinental (200ms+), high asymmetry</li>
-                        <li><strong>Noisy:</strong> Added random variations in delay</li>
-                        <li><strong>Asymmetric:</strong> Different delays for request vs response</li>
-                    </ul>
-                </div>
-
-                <div class="guide-section">
-                    <h3>⚙️ Client Parameters</h3>
-                    <ul>
-                        <li><strong>Initial Offset:</strong> Starting time difference from server</li>
-                        <li><strong>Drift Rate (ppm):</strong> Clock frequency error in parts per million</li>
-                        <li><strong>Sync Interval:</strong> How often synchronization occurs</li>
-                        <li><strong>Sync Period:</strong> Duration of each sync process</li>
-                        <li><strong>Packet Interval:</strong> Time between individual NTP packets</li>
-                    </ul>
-                    <p><strong>Note:</strong> Real clocks drift due to temperature, aging, and manufacturing tolerances.</p>
-                </div>
-
-                <div class="guide-section">
-                    <h3>🖥️ Server Parameters</h3>
-                    <ul>
-                        <li><strong>Server Error:</strong> Random uncertainty in server's reference time</li>
-                        <li><strong>Server Delay:</strong> Processing time before responding to requests</li>
-                        <li><strong>Stratum 1:</strong> Directly connected to reference time sources (GPS, atomic clocks)</li>
-                    </ul>
-                </div>
-
-                <div class="guide-section">
-                    <h3>📊 Performance Metrics</h3>
-                    <ul>
-                        <li><strong>Current Offset:</strong> Instantaneous time difference</li>
-                        <li><strong>Average Offset:</strong> Mean absolute synchronization error</li>
-                        <li><strong>Offset Std Dev:</strong> Consistency of synchronization</li>
-                        <li><strong>Sync Accuracy:</strong> Percentage accuracy (100% = perfect sync)</li>
-                        <li><strong>Network Jitter:</strong> Variation in round-trip delays</li>
-                        <li><strong>Round-trip Delay:</strong> Total network transit time</li>
-                    </ul>
-                </div>
-
-                <div class="guide-section">
                     <h3>🎮 How to Use This Simulation</h3>
                     <ol>
-                        <li><strong>Choose Network Scenario:</strong> Select from predefined network conditions or use custom settings</li>
-                        <li><strong>Adjust Parameters:</strong> Modify client/server settings to see their effects</li>
-                        <li><strong>Start Simulation:</strong> Click "Start Simulation" to begin continuous synchronization</li>
-                        <li><strong>Observe Behavior:</strong> Watch the clocks, packet animations, and performance chart</li>
-                        <li><strong>Manual Actions:</strong> Use "Synchronize Now" or "Send Packet" for step-by-step observation</li>
-                        <li><strong>Analyze Results:</strong> Study the RTT vs Sync Error chart to understand performance</li>
+                        <li><strong>Set Initial State:</strong> Adjust the "Peer 2 Initial Offset" to make one peer start ahead of the other. You can also give them different "Drift" rates.</li>
+                        <li><strong>Start Simulation:</strong> Click "Start Simulation" to let the clocks run. They will drift apart based on their settings.</li>
+                        <li><strong>Synchronize:</strong> Click "Synchronize Now" to initiate a packet exchange.</li>
+                        <li><strong>Observe:</strong> Watch the "Activity Logs" to see the calculated offset. A popup will announce which peer is slowing down. The "Status" for that peer will also change to "Slowing Down".</li>
+                        <li><strong>Analyze:</strong> Observe how the "Current Offset" decreases and converges toward zero after a synchronization event.</li>
                     </ol>
                 </div>
 
                 <div class="guide-section">
                     <h3>🔬 Experimental Observations</h3>
                     <ul>
-                        <li><strong>Clock Drift Effect:</strong> Notice how clocks diverge without synchronization</li>
-                        <li><strong>Network Impact:</strong> Higher RTT generally correlates with larger sync errors</li>
-                        <li><strong>Jitter Handling:</strong> NTP's damping factor reduces oscillations</li>
-                        <li><strong>Asymmetry Problems:</strong> Unequal network delays affect accuracy</li>
-                        <li><strong>Convergence Time:</strong> Multiple packets needed for stable synchronization</li>
-                    </ul>
-                </div>
-
-                <div class="guide-section">
-                    <h3>🧪 Educational Experiments</h3>
-                    <ol>
-                        <li><strong>Basic Sync:</strong> Start with LAN scenario, observe quick convergence</li>
-                        <li><strong>Drift Analysis:</strong> Set high drift rate, see gradual divergence</li>
-                        <li><strong>Network Effects:</strong> Compare LAN vs WAN vs Global scenarios</li>
-                        <li><strong>Asymmetry Impact:</strong> Use asymmetric scenarios, note accuracy loss</li>
-                        <li><strong>Jitter Resistance:</strong> Test noisy networks, observe NTP's robustness</li>
-                        <li><strong>Parameter Tuning:</strong> Adjust sync intervals and damping effects</li>
-                    </ol>
-                </div>
-
-                <div class="guide-section">
-                    <h3>💡 Key Insights</h3>
-                    <ul>
-                        <li><strong>NTP Accuracy:</strong> Typically achieves 1-50ms accuracy over internet</li>
-                        <li><strong>Stratum Hierarchy:</strong> Lower stratum numbers = higher accuracy</li>
-                        <li><strong>Fault Tolerance:</strong> Can handle server failures and network issues</li>
-                        <li><strong>Scalability:</strong> Hierarchical design supports millions of clients</li>
-                        <li><strong>Security:</strong> Modern NTP includes authentication mechanisms</li>
-                    </ul>
-                </div>
-
-                <div class="guide-section">
-                    <h3>⌨️ Keyboard Shortcuts</h3>
-                    <ul>
-                        <li><strong>F1 or Ctrl+H:</strong> Open/close this help guide</li>
-                        <li><strong>Escape:</strong> Close this modal</li>
-                        <li><strong>Space:</strong> Start/stop simulation</li>
-                        <li><strong>S:</strong> Manual synchronization</li>
-                        <li><strong>P:</strong> Send single packet</li>
-                        <li><strong>C:</strong> Clear chart data</li>
+                        <li><strong>Convergence:</strong> Watch how many sync events it takes for the clocks to become closely aligned.</li>
+                        <li><strong>Drift Impact:</strong> Higher drift rates will cause the clocks to diverge faster, requiring more frequent synchronization.</li>
+                        <li><strong>Network Effects:</strong> Increase RTT and RTT variation to see how network instability makes it harder to get an accurate offset measurement.</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
