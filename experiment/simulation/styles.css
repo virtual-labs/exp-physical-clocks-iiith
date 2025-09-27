@@ -1,4 +1,4 @@
-        * {
+* {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -1139,4 +1139,66 @@
             .guide-section h3 {
                 font-size: 1.1em;
             }
+        }
+
+        .popup {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2d3748;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, top 0.3s;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .popup.show {
+            opacity: 1;
+            visibility: visible;
+            top: 40px;
+        }
+
+        .peer-clock {
+            background: linear-gradient(135deg, #805ad5 0%, #6b46c1 100%);
+            color: white;
+        }
+
+        .peer-node {
+            background: linear-gradient(135deg, #805ad5 0%, #6b46c1 100%);
+        }
+
+        .mode-selector {
+            display: flex;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background-color: white;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .mode-btn.active {
+            background-color: #4299e1;
+            color: white;
+        }
+
+        .mode-btn:not(.active):hover {
+            background-color: #f7fafc;
         }
