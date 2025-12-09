@@ -1,1 +1,1 @@
-To understand the concept of physical clocks and the challenge of clock synchronization in distributed systems. This experiment demonstrates how algorithms like Cristian's Algorithm and the Network Time Protocol (NTP) are used to synchronize clocks in a network.
+To investigate the challenges of physical clock synchronization in distributed systems and demonstrate their resolution using Cristian's Algorithm and the Network Time Protocol (NTP).
