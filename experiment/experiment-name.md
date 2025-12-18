@@ -1,1 +1,1 @@
-## Physical Clocks, NTP, and variations
+## Physical Clocks and Clock Synchronization

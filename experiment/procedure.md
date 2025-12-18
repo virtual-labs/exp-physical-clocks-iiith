@@ -1,91 +1,93 @@
-This experimental procedure outlines how to use the provided simulation to understand Network Time Protocol (NTP) concepts. In the simulation, we explore the effects on time synchronization between a client and a server in a number of scenarios. These include:
-- Local Area Network (LAN)
-- Local Area Network (noisy)
-- Local Area Network (asymmetric)
-- Metropolitan Area Network (noisy)
-- Metropolitan Area Network (asymmetric)
-- Wide Area Network (noisy)
-- Wide Area Network (asymmetric)
-- Globally Distributed Network (noisy)
-- Globally Distributed Network (asymmetric)
-- Custom
+### Procedure
 
-Each scenario can be customized by adjusting various parameters. The goal is to observe how different factors influence the accuracy and reliability of time synchronization in a networked environment. A figure plotting the actual round-trip time versus the time synchronization error is displayed to visualize the synchronization process.
+This simulation demonstrates clock synchronization in distributed systems. Users can explore how various network conditions and parameters affect synchronization accuracy.
 
+**Note**: Use **landscape mode** on mobile devices for optimal viewing.
+
+---
+
+### Getting Started
+
+1. **Load the Simulation**: Open the Simulation tab in your browser
+2. **Select a Scenario**: Choose from predefined network configurations:
+   - Local Area Network (LAN) - clean, noisy, or asymmetric
+   - Metropolitan Area Network (MAN) - noisy or asymmetric
+   - Wide Area Network (WAN) - noisy or asymmetric
+   - Globally Distributed Network - noisy or asymmetric
+   - Custom - configure your own parameters
+
+3. **Run Basic Simulation**:
+   - Click **Start Simulation** to begin
+   - Observe the client and server clocks
+   - Introduce client clock skew and watch the divergence
+   - Click **Synchronize Now** to trigger synchronization
+   - Observe how Cristian's algorithm corrects the client's clock
+
+---
 
 ### Simulation Controls
 
-#### Buttons
+#### Action Buttons
+- **Start/Stop Simulation**: Begin or halt the simulation
+- **Synchronize Now**: Force immediate synchronization (may send multiple packets)
+- **Send Packet**: Manually add a packet to improve synchronization accuracy
+- **Clear Plot**: Reset the round-trip time vs. synchronization error graph
 
-- **Start Simulation**: Begin the simulation with the selected parameters.
-- **Stop Simulation**: Halt the simulation in progress.
-- **Synchronize Now**: Force an immediate synchronization between the client and server (multiple packets may be exchanged to achieve synchronization).
-- **Send Packet**: Add a packet to the current synchronization process manually. This may help improve the synchronization accuracy.
-- **Adjust Parameters**: Modify the network and client parameters to observe their effects on synchronization.
-- **Clear Plot**: Reset the current plot of round-trip time versus synchronization error.
+#### Key Parameters
 
+**Network Configuration**
+- **Round trip time (ms)**: Total packet travel time between client and server
+- **Round trip time variation (ms)**: Network jitter simulation
+- **Round trip time asymmetry variation (ms)**: Difference between forward/return path delays
+- **Simulation speed (ms/s)**: Rate at which simulation time progresses
 
-#### Network and Simulation Parameters
+**Client Settings**
+- **Initial time offset (ms)**: Starting clock difference from server
+- **Drift rate (ppm)**: Clock drift in parts per million
+- **Synchronization interval (ms)**: Time between sync attempts
+- **Synchronization period (ms)**: Duration of each sync session
+- **Synchronization packet interval (ms)**: Time between packets during sync
 
-- **Round trip time (ms)**: The time taken for a packet to travel from the client to the server and back, in milliseconds.
-- **Round trip time variation (ms)**: The variation in the round trip time, simulating network jitter, in milliseconds.
-- **Round trip time asymmetry variation (ms)**: The variation in difference of forward and return trip times, simulating network asymmetry, in milliseconds.
-- **Simulation speed (ms/s)**: The speed at which the simulation progresses, in milliseconds per second.
+**Server Settings**
+- **Time error (ms)**: Server's clock error relative to actual time
+- **Response delay (ms)**: Server processing delay before responding
 
+---
 
-#### NTP Client Parameters
+### Experimental Steps
 
-- **Initial time offset of the client (ms)**: The initial offset of the client's clock relative to the server's clock, in milliseconds.
-- **Drift rate of the client (ppm)**: The rate at which the client's clock drifts from the server's clock, in parts per million.
-- **Synchronization interval (ms)**: The time interval between synchronization attempts by the client, in milliseconds.
-- **Synchronization period (ms)**: The duration for which the client synchronizes with the server, in milliseconds.
-- **Synchronization packet interval (ms)**: The time interval between packets sent during synchronization, in milliseconds.
+Modify parameters individually and observe their effects on the synchronization graph:
 
+**1. Network Delay Effects**
+   - Adjust **Round trip time**: Observe how longer delays increase synchronization uncertainty
+   - Modify **Round trip time variation**: See how jitter affects accuracy and predictability
 
-#### NTP Server Parameters
+**2. Network Asymmetry Impact**
+   - Increase **Round trip time asymmetry variation**: Note greater offset calculation discrepancies
+   - Compare symmetric vs. asymmetric scenarios
 
-- **Time error of the server (ms)**: The error in the server's clock relative to the actual time, in milliseconds.
-- **Delay at server before responding to a request (ms)**: The delay introduced by the server before responding to a client request, in milliseconds.
+**3. Client Clock Behavior**
+   - Set different **Initial time offset** values: Watch correction over multiple sync attempts
+   - Increase **Drift rate**: Observe the need for more frequent synchronization
 
+**4. Synchronization Strategy**
+   - Adjust **Synchronization interval** and **period**: Balance accuracy vs. network load
+   - Modify **Synchronization packet interval**: See how multiple measurements improve accuracy
 
-#### Experimental Steps
+**5. Server Performance**
+   - Change **Server response delay**: Observe increased synchronization uncertainty
+   - Combine with network delays to simulate real-world conditions
 
-1. **Load the Simulation Page**
-   - Open the Simulation tab in your browser to access the simulation interface.
+**6. Combined Scenarios**
+   - Test multiple parameters simultaneously to understand complex interactions
+   - Compare results across different predefined scenarios
 
-2. **Select a Scenario**
-   - Choose a scenario from the dropdown menu to simulate different network configurations.
-   - The scenarios range from local networks to globally distributed networks with varying levels of noise and asymmetry.
+---
 
-3. **Adjust Parameters and Observe Effects**
-   Use the control form to modify the following parameters individually and observe their effects on synchronization. The provided figure will help visualize the changes.
+### Understanding the Results
 
-   **Network Trip Time**
-   - Increase/decrease "Round trip time" to simulate longer or shorter network trip times.
-   - **Observation**: Longer trip times may result in greater uncertainty in the time synchronization process.
-
-   **Network Asymmetry**
-   - Adjust "Round trip time asymmetry variation" to introduce unequal delays in the forward and return paths.
-   - **Observation**: Higher asymmetry may result in greater discrepancies in calculated offsets.
-
-   **Network Trip Variation**
-   - Change "Round trip time variation" to simulate varying network jitter.
-   - **Observation**: Greater variation can make synchronization less predictable and accurate.
-
-   **Client Offset**
-   - Set different values for "Initial time offset of the client" to observe the impact of initial clock differences.
-   - **Observation**: Initial offsets should be corrected over multiple synchronization attempts.
-
-   **Client Drift Rate**
-   - Modify "Drift rate of the client" to simulate clock drift in the client.
-   - **Observation**: Higher drift rates necessitate more frequent synchronization to maintain accuracy.
-
-   **Client Sync Interval and Period**
-   - Adjust "Synchronization interval" and "Synchronization period" to control the synchronization frequency and duration.
-   - **Observation**: More frequent synchronization can mitigate the effects of clock drift but may increase network load.
-
-   **Server Response Delay**
-   - Change "Delay at server before responding to a request" to simulate server response delays.
-   - **Observation**: Higher response delays can increase the uncertainty in synchronization.
-
-Please use **landscape mode** for this experiment, if you are using a mobile, but rotating the screen.
+The plot displays round-trip time versus synchronization error, helping visualize:
+- How network conditions affect accuracy
+- The effectiveness of multiple packet exchanges
+- Trade-offs between synchronization frequency and precision
+- Impact of asymmetric network paths on clock offset calculations

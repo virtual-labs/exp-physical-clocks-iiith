@@ -1,189 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/css/style.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/barecss@1.1.1/css/bare.min.css">
-<link rel="stylesheet" href="./css/main.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
-<title>NTP Simulation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peer-to-Peer Clock Synchronization Simulation</title>
+    <link rel="stylesheet" href="styles.css">
+    
 </head>
 <body>
+    <div class="app-container">
+        <header class="header">
+            <h1>
+                🕰️ Peer-to-Peer Clock Synchronization
+                <div class="status-indicator"></div>
+            </h1>
+            <div style="font-size: 0.9em; opacity: 0.9;">
+                Distributed Systems Time Experiment
+            </div>
+        </header>
 
-<!-- Instructions -->
-<div class="container">
-<div class="columns is-centered">
-  <div class="column">
-  <div class="v-collapsible-instruction-container v-instruction-container">
-    <div class="v-collapsible is-size-5">Instructions</div>
-    <div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
-      <p><strong>Experimental Steps</strong></p>
-      <p>Please use <strong>landscape mode</strong> for this experiment, if you are using a mobile, but rotating the screen. For details on simulation controls, see <strong>Procedure</strong>.</p>
-      <ul style="list-style: disc;">
-        <li>
-          <strong>Select a Scenario:</strong>
-          <ul style="list-style: circle;">
-            <li>Choose a scenario from the dropdown menu to simulate different network configurations.</li>
-            <li>The scenarios range from local networks to globally distributed networks with varying levels of noise and asymmetry.</li>
-          </ul>
-        </li>
-        <li>
-          <strong>Adjust Parameters and Observe Effects:</strong>
-          <ul style="list-style: circle;">
-            <li>Use the control form to modify the following parameters individually and observe their effects on synchronization. The provided figure will help visualize the changes.</li>
-            <li>
-              <strong>Network Trip Time:</strong>
-              <ul style="list-style: lower-alpha;">
-                <li>Increase/decrease "Round trip time" to simulate longer or shorter network trip times.</li>
-              </ul>
-            </li>
-            <li>
-              <strong>Network Asymmetry:</strong>
-              <ul style="list-style: lower-alpha;">
-                <li>Adjust "Round trip time asymmetry variation" to introduce unequal delays in the forward and return paths.</li>
-              </ul>
-            </li>
-            <li>
-              <strong>Network Trip Variation:</strong>
-              <ul style="list-style: lower-alpha;">
-                <li>Change "Round trip time variation" to simulate varying network jitter.</li>
-              </ul>
-            </li>
-            <li>
-              <strong>Client Offset:</strong>
-              <ul style="list-style: lower-alpha;">
-                <li>Set different values for "Initial time offset of the client" to observe the impact of initial clock differences.</li>
-              </ul>
-            </li>
-            <li>
-              <strong>Client Drift Rate:</strong>
-              <ul style="list-style: lower-alpha;">
-                <li>Modify "Drift rate of the client" to simulate clock drift in the client.</li>
-              </ul>
-            </li>
-            <li>
-              <strong>Client Sync Interval and Period:</strong>
-              <ul style="list-style: lower-alpha;">
-                <li>Adjust "Synchronization interval" and "Synchronization period" to control the synchronization frequency and duration.</li>
-              </ul>
-            </li>
-            <li>
-              <strong>Server Response Delay:</strong>
-              <ul style="list-style: lower-alpha;">
-                <li>Change "Delay at server before responding to a request" to simulate server response delays.</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
+        <div class="controls-panel">
+            <div class="scenario-section">
+                <h3>Mode</h3>
+                <div class="mode-selector">
+                    <button class="mode-btn active" id="autoModeBtn">Automatic</button>
+                    <button class="mode-btn" id="manualModeBtn">Manual</button>
+                </div>
+            </div>
+            <div class="scenario-section">
+                <h3>Network Scenario</h3>
+                <select id="scenario" class="scenario-select">
+                    <option value="lan">Local Area Network (LAN)</option>
+                    <option value="lan_noisy">Local Area Network (noisy)</option>
+                    <option value="lan_asymmetric">Local Area Network (asymmetric)</option>
+                    <option value="man_noisy">Metropolitan Area Network (noisy)</option>
+                    <option value="man_asymmetric">Metropolitan Area Network (asymmetric)</option>
+                    <option value="wan_noisy">Wide Area Network (noisy)</option>
+                    <option value="wan_asymmetric">Wide Area Network (asymmetric)</option>
+                    <option value="global_noisy">Globally Distributed Network (noisy)</option>
+                    <option value="global_asymmetric">Globally Distributed Network (asymmetric)</option>
+                    <option value="custom">Custom</option>
+                </select>
+            </div>
+
+            <div class="parameter-group">
+                <h4>Network Parameters</h4>
+                <div class="parameter-row">
+                    <label>Round trip time (ms):</label>
+                    <input type="number" id="rtt" value="50" min="1" max="1000">
+                    <span class="value-display" id="rtt-display">50</span>
+                </div>
+                <div class="parameter-row">
+                    <label>RTT variation (ms):</label>
+                    <input type="number" id="rtt_variation" value="10" min="0" max="500">
+                    <span class="value-display" id="rtt_variation-display">10</span>
+                </div>
+                <div class="parameter-row">
+                    <label>Asymmetry (ms):</label>
+                    <input type="number" id="asymmetry" value="5" min="0" max="200">
+                    <span class="value-display" id="asymmetry-display">5</span>
+                </div>
+                <div class="parameter-row">
+                    <label>Simulation speed:</label>
+                    <input type="number" id="sim_speed" value="100" min="10" max="1000">
+                    <span class="value-display" id="sim_speed-display">100</span>
+                </div>
+            </div>
+
+            <div class="parameter-group">
+                <h4>Peer Parameters</h4>
+                <div class="parameter-row">
+                    <label>Peer 2 Initial Offset (ms):</label>
+                    <input type="number" id="peer2_offset" value="1000" min="-5000" max="5000">
+                    <span class="value-display" id="peer2_offset-display">1000</span>
+                </div>
+                <div class="parameter-row">
+                    <label>Peer 1 Drift (ppm):</label>
+                    <input type="number" id="peer1_drift" value="10" min="-100" max="100">
+                    <span class="value-display" id="peer1_drift-display">10</span>
+                </div>
+                <div class="parameter-row">
+                    <label>Peer 2 Drift (ppm):</label>
+                    <input type="number" id="peer2_drift" value="20" min="-100" max="100">
+                    <span class="value-display" id="peer2_drift-display">20</span>
+                </div>
+                <div class="parameter-row">
+                    <label>Sync Interval (ms):</label>
+                    <input type="number" id="sync_interval" value="5000" min="1000" max="60000">
+                    <span class="value-display" id="sync_interval-display">5000</span>
+                </div>
+            </div>
+
+            <div class="control-buttons">
+                <button class="control-btn btn-start" id="startBtn">▶ Start Simulation</button>
+                <button class="control-btn btn-stop" id="stopBtn">⏹ Stop Simulation</button>
+                <button class="control-btn btn-sync" id="syncBtn">🔄 Synchronize Now</button>
+                <button class="control-btn btn-clear" id="clearBtn">🗑 Clear Chart</button>
+            </div>
+        </div>
+
+        <div class="experiment-area">
+            <button class="info-btn" id="infoBtn" onclick="showInfo()" title="Information Guide (F1 or Ctrl+H)">ℹ️</button>
+            <div class="clocks-container">
+                <div class="clock peer-clock">
+                    <h3>Peer 1</h3>
+                    <div class="time" id="peer1Time">00:00:00.000</div>
+                    <div class="info">
+                        Drift: <span id="peer1DriftDisplay">10ppm</span><br>
+                        Status: <span id="peer1Status">Normal</span>
+                    </div>
+                </div>
+                <div class="clock peer-clock">
+                    <h3>Peer 2</h3>
+                    <div class="time" id="peer2Time">00:00:00.000</div>
+                    <div class="info">
+                        Drift: <span id="peer2DriftDisplay">20ppm</span><br>
+                        Status: <span id="peer2Status">Normal</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="network-visualization">
+                <div class="network-node peer-node">PEER 1</div>
+                <div class="network-path"></div>
+                <div class="packet" id="packet"></div>
+                <div class="network-node peer-node">PEER 2</div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-title">Synchronization Performance</div>
+                <canvas id="syncChart" class="chart"></canvas>
+            </div>
+        </div>
+
+        <div class="observations-panel">
+            <div class="status-section">
+                <h4>Activity Logs</h4>
+                <div class="log-section" id="logContainer">
+                    <div class="log-entry log-info">[INFO] Peer-to-Peer Sync Simulation initialized</div>
+                    <div class="log-entry log-info">[INFO] Ready to start synchronization</div>
+                </div>
+            </div>
+
+            <div class="status-section">
+                <h4>System Status</h4>
+                <div class="status-item">
+                    <div class="label">Current Offset</div>
+                    <div class="value" id="currentOffset">1000 ms</div>
+                </div>
+                <div class="status-item">
+                    <div class="label">Average Offset</div>
+                    <div class="value" id="avgOffset">0 ms</div>
+                </div>
+                <div class="status-item">
+                    <div class="label">Round-Trip Delay</div>
+                    <div class="value" id="roundTripDelay">0 ms</div>
+                </div>
+                <div class="status-item active">
+                    <div class="label">Sync State</div>
+                    <div class="value" id="syncState">IDLE</div>
+                </div>
+                <div class="status-item">
+                    <div class="label">Packets Sent</div>
+                    <div class="value" id="packetsSent">0</div>
+                </div>
+                <div class="status-item">
+                    <div class="label">Last Sync</div>
+                    <div class="value" id="lastSync">Never</div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  </div>
-  <div class="column" id="rotate-message" txt="c">
-    🔄 Please rotate your device to landscape mode.
-  </div>
-</div>
-</div>
 
-<!-- Simulation Environment -->
-<section id="simulation">
-  <canvas id="arena" width="1024" height="320"></canvas>
-  <audio id="start-audio" src="https://ia801000.us.archive.org/35/items/windowsxpstartup_201910/Windows%20XP%20Startup.mp3"></audio>
-  <audio id="stop-audio" src="https://ia801000.us.archive.org/35/items/windowsxpstartup_201910/Windows%20XP%20Shutdown.mp3"></audio>
-  <audio id="pause-audio" src="https://ia801000.us.archive.org/35/items/windowsxpstartup_201910/notify.mp3"></audio>
-  <audio id="adjust-audio" src="https://ia801000.us.archive.org/35/items/windowsxpstartup_201910/chimes.mp3"></audio>
-  <audio id="synchronize-audio" src="https://ia801000.us.archive.org/35/items/windowsxpstartup_201910/Windows%20XP%20Logon%20Sound.mp3"></audio>
-</section>
+    <!-- Slowdown Popup -->
+    <div class="popup" id="slowdownPopup"></div>
 
-<!-- Controls -->
-<section id="controls">
-<form>
-  <div id="buttons">
-    <grid>
-      <div col="1/4"><button full id="start-simulation" primary onclick="onStartSimulation()">Pause Simulation</button></div>
-      <div col="1/4"><button full id="stop-simulation" onclick="onStopSimulation()">Stop Simulation</button></div>
-      <div col="1/4"><button full id="synchronize" onclick="onSynchronize()">Synchronize Now</button></div>
-      <div col="1/4"><button full id="send-packet" onclick="onSendPacket()">Send Packet</button></div>
-    </grid>
-    <grid>
-      <div col="2/4">
-      <select id="select-experiment" onchange="onSelectExperiment()">
-        <option disabled selected>Select an Experiment</option>
-        <option value="lan-x">Local Area Network</option>
-        <option value="lan-n">Local Area Network (noisy)</option>
-        <option value="lan-a">Local Area Network (asymmetric)</option>
-        <option value="man-n">Metropolitan Area Network (noisy)</option>
-        <option value="man-a">Metropolitan Area Network (asymmetric)</option>
-        <option value="wan-n">Wide Area Network (noisy)</option>
-        <option value="wan-a">Wide Area Network (asymmetric)</option>
-        <option value="gan-n">Globally Distributed Network (noisy)</option>
-        <option value="gan-a">Globally Distributed Network (asymmetric)</option>
-        <option value="usr-x">Custom</option>
-      </select>
-      </div>
-      <div col="1/4"><button full id="adjust-parameters" onclick="onAdjustParameters()">Adjust Parameters</button></div>
-      <div col="1/4"><button full id="clear-plot" onclick="onClearPlot()">Clear Plot</button></div>
-    </grid>
-  </div>
-  <div id="plot">
-    <canvas id="plot-offset" width="320" height="320"></canvas>
-  </div>
-  <grid>
-    <div col="1/2">
-      <h4>Network and Simulation Parameters</h4>
-      <label>Round trip time (ms)</label>
-      <input type="text" name="network-trip" placeholder="100">
-      <label>Round trip asymmetry variation (ms)</label>
-      <input type="text" name="network-asymmetry" placeholder="20">
+    <!-- Mobile Portrait Orientation Overlay -->
+    <div class="rotate-device-overlay">
+        <div class="rotate-icon">📱➡️📲</div>
+        <h2>Please Rotate Your Device</h2>
+        <p>For the best experience, please rotate your device to landscape mode to view this simulation.</p>
     </div>
-    <div col="1/2">
-      <h4>...</h4>
-      <label>Round trip time variation (ms)</label>
-      <input type="text" name="network-trip-variation" placeholder="20">
-      <label>Simulation speed (ms/s)</label>
-      <input type="text" name="simulation-speed" placeholder="10">
-    </div>
-    <div col="1/2">
-    <h4>NTP Client Parameters</h4>
-    <label>Initial time offset of the client (ms)</label>
-    <input type="text" name="client-offset" placeholder="10">
-    <label>Synchronization interval (ms)</label>
-    <input type="text" name="client-sync-interval" placeholder="1000">
-    <label>Synchronization packet interval (ms)</label>
-    <input type="text" name="client-packet-interval" placeholder="10">
-  </div>
-  <div col="1/2">
-    <h4>...</h4>
-    <label>Drift rate of the client (ppm)</label>
-    <input type="text" name="client-drift-rate" placeholder="0">
-    <label>Synchronization period (ms)</label>
-    <input type="text" name="client-sync-period" placeholder="100">
-  </div>
-  <div col="1/2">
-    <h4>NTP Server Parameters</h4>
-    <label>Time error of the server (ms)</label>
-    <input type="text" name="server-error" placeholder="0">
-  </div>
-  <div col="1/2">
-    <h4>...</h4>
-    <label>Max server delay before responding to request (ms)</label>
-    <input type="text" name="server-response-delay" placeholder="10">
-  </div>
-  </grid>
-</form>
-</section>
-</div>
 
-<!-- Load the scripts -->
-<script src="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/js/script.js"></script>
-<script src="./js/main.js"></script>
+    <!-- Info Modal -->
+    <div class="modal-overlay" id="infoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🕰️ Peer-to-Peer Clock Synchronization - Guide</h2>
+                <button class="modal-close" onclick="hideInfo()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="guide-section">
+                    <h3>🎯 What is Peer-to-Peer Synchronization?</h3>
+                    <p>In this model, there is no central time server. Peers synchronize with each other to agree on a common time. This simulation uses a method where the peer with the faster clock slows down its clock rate temporarily to allow the slower peer to catch up.</p>
+                </div>
+
+                <div class="guide-section">
+                    <h3>🧮 Synchronization Algorithm</h3>
+                    <p>The simulation uses a simplified algorithm inspired by NTP:</p>
+                    <ul>
+                        <li>One peer sends a burst of packets to the other.</li>
+                        <li>For each packet, the round-trip time (RTT) and clock offset are calculated.</li>
+                        <li>The measurement with the <strong>smallest RTT</strong> is considered the most accurate.</li>
+                        <li>The offset from this best measurement is used to determine which peer is faster.</li>
+                        <li>The faster peer's clock is then slowed down by a small factor until the clocks are aligned.</li>
+                    </ul>
+                    <div class="formula-box">
+                        <strong>Clock Offset:</strong> θ = ((T₁ - T₀) + (T₂ - T₃)) / 2<br>
+                        <strong>Round-trip Delay:</strong> δ = (T₃ - T₀) - (T₂ - T₁)
+                    </div>
+                </div>
+
+                <div class="guide-section">
+                    <h3>🎮 How to Use This Simulation</h3>
+                    <ol>
+                        <li><strong>Set Initial State:</strong> Adjust the "Peer 2 Initial Offset" to make one peer start ahead of the other. You can also give them different "Drift" rates.</li>
+                        <li><strong>Start Simulation:</strong> Click "Start Simulation" to let the clocks run. They will drift apart based on their settings.</li>
+                        <li><strong>Synchronize:</strong> Click "Synchronize Now" to initiate a packet exchange.</li>
+                        <li><strong>Observe:</strong> Watch the "Activity Logs" to see the calculated offset. A popup will announce which peer is slowing down. The "Status" for that peer will also change to "Slowing Down".</li>
+                        <li><strong>Analyze:</strong> Observe how the "Current Offset" decreases and converges toward zero after a synchronization event.</li>
+                    </ol>
+                </div>
+
+                <div class="guide-section">
+                    <h3>🔬 Experimental Observations</h3>
+                    <ul>
+                        <li><strong>Convergence:</strong> Watch how many sync events it takes for the clocks to become closely aligned.</li>
+                        <li><strong>Drift Impact:</strong> Higher drift rates will cause the clocks to diverge faster, requiring more frequent synchronization.</li>
+                        <li><strong>Network Effects:</strong> Increase RTT and RTT variation to see how network instability makes it harder to get an accurate offset measurement.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
-
-
-<!-- <a href="https://www.flaticon.com/free-icons/computer" title="computer icons">Computer icons created by Freepik - Flaticon</a> -->
-<!-- <a href="https://www.flaticon.com/free-icons/mac" title="mac icons">Mac icons created by xnimrodx - Flaticon</a> -->
-<!-- <a href="https://www.flaticon.com/free-icons/hub" title="hub icons">Hub icons created by Freepik - Flaticon</a> -->
-<!-- <a href="https://www.flaticon.com/free-icons/packet" title="packet icons">Packet icons created by Uniconlabs - Flaticon</a> -->
