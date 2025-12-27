@@ -1,0 +1,158 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "What is the primary purpose of a physical clock in a computer?",
+      "answers": {
+        "a": "To track calendar dates",
+        "b": "To measure time passage",
+        "c": "To synchronize with other systems",
+        "d": "To generate random numbers"
+      },
+      "explanations": {
+        "a": "Incorrect. Date tracking is secondary to time measurement.",
+        "b": "Correct. Physical clocks measure time passage, essential for event ordering.",
+        "c": "Incorrect. Synchronization uses clocks but isn't their primary purpose.",
+        "d": "Incorrect. Random number generation uses different mechanisms."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is clock skew?",
+      "answers": {
+        "a": "Clock startup delay",
+        "b": "Time difference between two clocks",
+        "c": "Clock frequency or speed",
+        "d": "Synchronization duration"
+      },
+      "explanations": {
+        "a": "Incorrect. Startup delay is unrelated to skew.",
+        "b": "Correct. Clock skew is the time difference between two clocks at a given moment.",
+        "c": "Incorrect. Clock frequency causes skew but is not skew itself.",
+        "d": "Incorrect. This describes synchronization time, not skew."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Why is clock synchronization critical in distributed systems?",
+      "answers": {
+        "a": "To standardize hardware",
+        "b": "To coordinate processes and order events",
+        "c": "To reduce network latency",
+        "d": "To boost individual machine speed"
+      },
+      "explanations": {
+        "a": "Incorrect. Distributed systems support heterogeneous hardware.",
+        "b": "Correct. Synchronized clocks enable event ordering and process coordination across machines.",
+        "c": "Incorrect. Synchronization doesn't directly affect network latency.",
+        "d": "Incorrect. Synchronization improves coordination, not individual performance."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "In Cristian's algorithm, how is one-way network delay estimated?",
+      "answers": {
+        "a": "Server provides the delay value",
+        "b": "Delay is assumed to be zero",
+        "c": "Round-trip time divided by two",
+        "d": "Using a fixed constant value"
+      },
+      "explanations": {
+        "a": "Incorrect. The server cannot measure one-way delay.",
+        "b": "Incorrect. Zero delay assumption would cause significant errors.",
+        "c": "Correct. The algorithm measures round-trip time and assumes symmetric paths (delay = RTT/2).",
+        "d": "Incorrect. Constants don't adapt to network conditions."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What problem arises in Cristian's algorithm when network delay varies significantly?",
+      "answers": {
+        "a": "Client clock runs faster",
+        "b": "Client clock runs slower",
+        "c": "Synchronization becomes inaccurate",
+        "d": "Server becomes unstable"
+      },
+      "explanations": {
+        "a": "Incorrect. Variable delay doesn't affect clock speed.",
+        "b": "Incorrect. Variable delay doesn't affect clock speed.",
+        "c": "Correct. High delay variation breaks the symmetric round-trip assumption, causing errors.",
+        "d": "Incorrect. Delay affects accuracy, not server stability."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is the primary role of a time server?",
+      "answers": {
+        "a": "To provide reference time",
+        "b": "To slow client clocks",
+        "c": "To accelerate client clocks",
+        "d": "To halt client clocks"
+      },
+      "explanations": {
+        "a": "Correct. Time servers provide authoritative reference time for client synchronization.",
+        "b": "Incorrect. Servers provide time; clients adjust their own clocks.",
+        "c": "Incorrect. Servers provide time; clients adjust their own clocks.",
+        "d": "Incorrect. Time servers enable synchronization, not clock stoppage."
+      },
+      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "How does NTP improve upon Cristian's algorithm?",
+      "answers": {
+        "a": "Uses a single centralized server",
+        "b": "Ignores network delay effects",
+        "c": "Employs hierarchical servers and statistical filtering",
+        "d": "Limited to local networks only"
+      },
+      "explanations": {
+        "a": "Incorrect. NTP uses multiple hierarchical servers.",
+        "b": "Incorrect. NTP has sophisticated delay compensation.",
+        "c": "Correct. NTP uses stratum hierarchy and filters unreliable measurements for accuracy.",
+        "d": "Incorrect. NTP is designed for internet-scale synchronization."
+      },
+      "correctAnswer": "c",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "What defines a stratum 1 NTP server?",
+      "answers": {
+        "a": "An unsynchronized server",
+        "b": "Synchronized with client devices",
+        "c": "Directly connected to atomic clock or GPS",
+        "d": "Synchronized with another stratum 1 server"
+      },
+      "explanations": {
+        "a": "Incorrect. Stratum 1 servers are highly synchronized.",
+        "b": "Incorrect. Clients sync with servers, not vice versa.",
+        "c": "Correct. Stratum 1 servers connect directly to stratum 0 reference clocks (atomic/GPS).",
+        "d": "Incorrect. That would be a stratum 2 server."
+      },
+      "correctAnswer": "c",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "When a client's clock is ahead of the server, what adjustment is needed?",
+      "answers": {
+        "a": "Advance the clock forward",
+        "b": "Set the clock backward",
+        "c": "Make no adjustment",
+        "d": "Request server clock change"
+      },
+      "explanations": {
+        "a": "Incorrect. This would worsen the discrepancy.",
+        "b": "Correct. The client adjusts backward, typically by slowing the clock to avoid time reversal issues. See <a href='https://www.rfc-editor.org/rfc/rfc5905' target='_blank'>NTPv4 RFC</a>.",
+        "c": "Incorrect. Synchronization requires adjustment.",
+        "d": "Incorrect. Clients adjust their own clocks."
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    }
+  ]
+}

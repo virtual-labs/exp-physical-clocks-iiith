@@ -1,0 +1,226 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "What is the primary challenge in synchronizing physical clocks in distributed systems?",
+      "answers": {
+        "a": "Clocks run too fast",
+        "b": "Clocks run too slow",
+        "c": "Clocks drift at different rates",
+        "d": "Clocks are inaccessible"
+      },
+      "explanations": {
+        "a": "Incorrect. Individual speed isn't the core issue.",
+        "b": "Incorrect. Individual speed isn't the core issue.",
+        "c": "Correct. Crystal oscillators vary slightly, causing clocks to drift apart over time.",
+        "d": "Incorrect. Accessibility isn't the problem; it's maintaining agreement."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is a 'time server' in clock synchronization?",
+      "answers": {
+        "a": "A server hosting web pages",
+        "b": "A server providing reference time",
+        "c": "A server storing files",
+        "d": "A server running databases"
+      },
+      "explanations": {
+        "a": "Incorrect. That's a web server.",
+        "b": "Correct. Time servers provide accurate time sources for network synchronization.",
+        "c": "Incorrect. That's a file server.",
+        "d": "Incorrect. That's a database server."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is the core principle of Cristian's algorithm?",
+      "answers": {
+        "a": "Slow down all clocks uniformly",
+        "b": "Speed up all clocks uniformly",
+        "c": "Adjust client clock using server time and network delay",
+        "d": "Stop all clocks temporarily"
+      },
+      "explanations": {
+        "a": "Incorrect. The goal is synchronization, not uniform slowdown.",
+        "b": "Incorrect. The goal is synchronization, not uniform speedup.",
+        "c": "Correct. Clients request server time and adjust their clocks accounting for round-trip delay.",
+        "d": "Incorrect. Clocks continue running during synchronization."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "How does NTP handle variable network delays?",
+      "answers": {
+        "a": "Ignores delay variation",
+        "b": "Assumes constant delay",
+        "c": "Uses statistical filtering of measurements",
+        "d": "Requires manual delay input"
+      },
+      "explanations": {
+        "a": "Incorrect. Ignoring variation causes inaccuracy.",
+        "b": "Incorrect. Real networks have variable delays.",
+        "c": "Correct. NTP collects multiple samples and filters outliers to estimate offset and delay.",
+        "d": "Incorrect. NTP operates automatically."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is the purpose of NTP's hierarchical server structure?",
+      "answers": {
+        "a": "To increase system complexity",
+        "b": "To distribute load and improve accuracy",
+        "c": "To reduce system reliability",
+        "d": "To increase operational costs"
+      },
+      "explanations": {
+        "a": "Incorrect. Hierarchy serves functional purposes.",
+        "b": "Correct. Strata distribute time from accurate sources to many clients, improving scalability.",
+        "c": "Incorrect. Hierarchy enhances reliability.",
+        "d": "Incorrect. It's a cost-effective distribution method."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Beyond the server timestamp, what must a client consider before setting its clock?",
+      "answers": {
+        "a": "Server's geographic location",
+        "b": "Network round-trip time",
+        "c": "Server's uptime duration",
+        "d": "Number of connected users"
+      },
+      "explanations": {
+        "a": "Incorrect. Physical location isn't used in calculations.",
+        "b": "Correct. Clients estimate propagation delay, typically as half the round-trip time.",
+        "c": "Incorrect. Uptime doesn't affect time calculations.",
+        "d": "Incorrect. User count is irrelevant to synchronization."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Why is directly setting a clock backward problematic when it's ahead of server time?",
+      "answers": {
+        "a": "Events can appear to occur in the past",
+        "b": "It damages clock hardware",
+        "c": "It crashes the server",
+        "d": "It violates physics laws"
+      },
+      "explanations": {
+        "a": "Correct. Backward jumps break time monotonicity, causing issues for databases and build systems. See <a href='https://www.nist.gov/pml/time-and-frequency-division/time-realization/leap-seconds' target='_blank'>Leap Seconds</a>.",
+        "b": "Incorrect. This is software behavior, not hardware damage.",
+        "c": "Incorrect. It affects the client, not the server.",
+        "d": "Incorrect. It's problematic for software, not physics."
+      },
+      "correctAnswer": "a",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "How can systems handle clocks that are ahead without jumping backward?",
+      "answers": {
+        "a": "Always set clocks forward only",
+        "b": "Gradually slow the clock until synchronized",
+        "c": "Ignore the server's time",
+        "d": "Shut down the system"
+      },
+      "explanations": {
+        "a": "Incorrect. This doesn't work when ahead.",
+        "b": "Correct. 'Slewing' adjusts clock frequency to maintain monotonic time while correcting offset.",
+        "c": "Incorrect. This defeats synchronization's purpose.",
+        "d": "Incorrect. Too extreme for this issue."
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "What is the trade-off between synchronization frequency and network traffic?",
+      "answers": {
+        "a": "Higher frequency reduces traffic",
+        "b": "Higher frequency increases traffic",
+        "c": "No trade-off exists",
+        "d": "Trade-off depends on time of day"
+      },
+      "explanations": {
+        "a": "Incorrect. More syncs mean more packets.",
+        "b": "Correct. Frequent synchronization improves accuracy but increases network overhead.",
+        "c": "Incorrect. There's a clear trade-off.",
+        "d": "Incorrect. The trade-off is fundamental and constant."
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "In a scenario where network asymmetry exists (different forward and return path delays), which synchronization method is most affected?",
+      "answers": {
+        "a": "NTP with multiple servers",
+        "b": "Cristian's algorithm",
+        "c": "GPS-based synchronization",
+        "d": "Atomic clock synchronization"
+      },
+      "explanations": {
+        "a": "Incorrect. NTP's statistical filtering helps mitigate asymmetry effects.",
+        "b": "Correct. Cristian's algorithm assumes symmetric paths (RTT/2), making it vulnerable to asymmetry.",
+        "c": "Incorrect. GPS provides one-way time signals, unaffected by return path delays.",
+        "d": "Incorrect. Atomic clocks are local references, not affected by network paths."
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "A financial trading system requires timestamps accurate to within 1 millisecond. Which approach is most suitable?",
+      "answers": {
+        "a": "Cristian's algorithm over the internet",
+        "b": "Manual clock setting daily",
+        "c": "NTP with stratum 1 servers or PTP",
+        "d": "System clock without synchronization"
+      },
+      "explanations": {
+        "a": "Incorrect. Internet variability makes this too unreliable for millisecond accuracy.",
+        "b": "Incorrect. Manual setting cannot maintain millisecond precision.",
+        "c": "Correct. NTP with stratum 1 sources or Precision Time Protocol (PTP) can achieve sub-millisecond accuracy.",
+        "d": "Incorrect. Unsynchronized clocks drift significantly."
+      },
+      "correctAnswer": "c",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "What happens if a client's clock drift rate is 50 ppm and it synchronizes once per day?",
+      "answers": {
+        "a": "Clock stays perfectly synchronized",
+        "b": "Clock drifts approximately 4.3 seconds per day",
+        "c": "Clock stops working",
+        "d": "Clock drift is negligible"
+      },
+      "explanations": {
+        "a": "Incorrect. Drift occurs continuously between synchronizations.",
+        "b": "Correct. 50 ppm × 86,400 seconds/day = 4.32 seconds maximum drift between syncs.",
+        "c": "Incorrect. Drift doesn't stop the clock.",
+        "d": "Incorrect. 4+ seconds is significant for many applications."
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "In a distributed database system, why might logical clocks be preferred over physical clock synchronization?",
+      "answers": {
+        "a": "Logical clocks are always more accurate",
+        "b": "Logical clocks capture causality without requiring time synchronization",
+        "c": "Logical clocks are easier to implement",
+        "d": "Physical clocks cannot be synchronized"
+      },
+      "explanations": {
+        "a": "Incorrect. Logical clocks don't measure actual time.",
+        "b": "Correct. Logical clocks (e.g., Lamport, vector clocks) order events by causality, avoiding synchronization overhead.",
+        "c": "Incorrect. Implementation complexity isn't the primary reason.",
+        "d": "Incorrect. Physical clocks can be synchronized, but it may not be necessary for ordering."
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    }
+  ]
+}
