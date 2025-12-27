@@ -9,7 +9,8 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: #1a202c;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         .app-container {
@@ -624,33 +625,42 @@
         .log-warning { background: rgba(237, 137, 54, 0.2); }
         .log-error { background: rgba(245, 101, 101, 0.2); }
 
+        /* ========== TABLET BREAKPOINT (max-width: 1200px) ========== */
         @media (max-width: 1200px) {
             .app-container {
                 grid-template-columns: 1fr;
-                grid-template-rows: 80px 1fr auto auto;
-                height: 100vh;
-                gap: 10px;
-                padding: 10px;
+                grid-template-rows: auto;
+                height: auto;
+                min-height: 100vh;
+                gap: 15px;
+                padding: 15px;
+                overflow: visible;
+            }
+            
+            .header {
+                grid-column: 1;
             }
             
             .controls-panel {
-                height: 300px;
+                height: auto;
+                max-height: none;
                 order: 2;
             }
             
             .experiment-area {
                 order: 1;
-                min-height: 400px;
+                min-height: auto;
             }
             
             .observations-panel {
-                height: 250px;
+                height: auto;
+                max-height: none;
                 order: 3;
             }
             
             .clocks-container {
-                grid-template-columns: 1fr;
-                gap: 10px;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
                 padding: 15px;
             }
             
@@ -660,142 +670,68 @@
             }
             
             .network-node {
-                width: 60px;
-                height: 60px;
-                font-size: 10px;
+                width: 70px;
+                height: 70px;
+                font-size: 11px;
             }
             
             .chart-container {
-                padding: 12px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.5em;
-            }
-            
-            .parameter-group {
-                padding: 12px;
-            }
-            
-            .parameter-row {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 6px;
-            }
-            
-            .parameter-row label {
-                text-align: left;
-                margin-bottom: 3px;
-            }
-            
-            .parameter-row input {
-                width: 100%;
-                max-width: 100px;
-                align-self: flex-start;
-            }
-            
-            .control-btn {
-                padding: 8px 12px;
-                font-size: 12px;
-            }
-            
-            .clock .time {
-                font-size: 1.4em;
-            }
-            
-            .network-visualization {
-                flex-direction: column;
-                gap: 15px;
-                height: auto;
                 padding: 15px;
-            }
-            
-            .network-path {
-                display: none;
-            }
-            
-            .packet {
-                display: none !important;
-            }
-            
-            .status-item, .metric-item {
-                flex-direction: column;
-                align-items: stretch;
-                text-align: center;
-                gap: 4px;
+                min-height: 300px;
             }
             
             .log-section {
-                max-height: 200px;
+                height: 250px;
             }
         }
-        
-        /* Mobile Landscape Support - Desktop-like Experience */
-        @media screen and (max-width: 968px) and (orientation: landscape) {
+
+        /* ========== MOBILE BREAKPOINT (max-width: 768px) ========== */
+        @media (max-width: 768px) {
+            body {
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+            
             .app-container {
-                grid-template-columns: 280px 1fr 300px;
-                grid-template-rows: 60px 1fr;
-                gap: 10px;
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                height: auto;
+                min-height: 100vh;
+                gap: 12px;
                 padding: 10px;
+                border-radius: 0;
+                overflow: visible;
             }
             
             .header {
-                padding: 0 15px;
+                padding: 15px;
+                border-radius: 12px;
+                flex-direction: column;
+                text-align: center;
+                gap: 8px;
             }
             
             .header h1 {
-                font-size: 1.4em;
+                font-size: 1.3em;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .header > div {
+                font-size: 0.8em;
             }
             
             .controls-panel {
                 padding: 15px;
-                height: calc(100vh - 80px);
-            }
-            
-            .observations-panel {
-                padding: 15px;
-                height: calc(100vh - 80px);
-            }
-            
-            .parameter-group {
-                padding: 12px;
-                margin-bottom: 12px;
-            }
-            
-            .parameter-group h4 {
-                font-size: 0.9em;
-                margin-bottom: 10px;
-            }
-            
-            .parameter-row {
-                margin-bottom: 8px;
-            }
-            
-            .parameter-row label {
-                font-size: 0.75em;
-            }
-            
-            .parameter-row input {
-                width: 55px;
-                padding: 5px 6px;
-                font-size: 0.75em;
-            }
-            
-            .parameter-row .value-display {
-                width: 35px;
-                font-size: 0.75em;
-            }
-            
-            .control-btn {
-                padding: 8px 12px;
-                font-size: 0.8rem;
-                margin-bottom: 6px;
+                height: auto;
+                max-height: none;
+                gap: 15px;
+                border-radius: 12px;
             }
             
             .scenario-section {
                 padding: 15px;
+                border-radius: 12px;
             }
             
             .scenario-section h3 {
@@ -805,55 +741,155 @@
             
             .scenario-select {
                 padding: 10px 12px;
-                font-size: 0.8rem;
+                font-size: 14px;
+            }
+            
+            .mode-selector {
+                margin-bottom: 10px;
+            }
+            
+            .mode-btn {
+                padding: 8px;
+                font-size: 13px;
+            }
+            
+            .parameter-group {
+                padding: 12px;
+                border-radius: 10px;
+            }
+            
+            .parameter-group h4 {
+                font-size: 0.9em;
+                margin-bottom: 10px;
+            }
+            
+            .parameter-row {
+                display: grid;
+                grid-template-columns: 1fr auto auto;
+                gap: 8px;
+                margin-bottom: 8px;
+            }
+            
+            .parameter-row label {
+                font-size: 11px;
+                align-self: center;
+            }
+            
+            .parameter-row input {
+                width: 60px;
+                padding: 6px 8px;
+                font-size: 12px;
+            }
+            
+            .parameter-row .value-display {
+                width: 40px;
+                font-size: 11px;
+                align-self: center;
+            }
+            
+            .control-buttons {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            
+            .control-btn {
+                padding: 10px 12px;
+                font-size: 12px;
+                border-radius: 8px;
+            }
+            
+            .control-btn.btn-sync,
+            .control-btn.btn-clear {
+                grid-column: span 1;
+            }
+            
+            .experiment-area {
+                gap: 12px;
+            }
+            
+            .info-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+                top: 10px;
+                right: 10px;
             }
             
             .clocks-container {
-                padding: 15px;
-                gap: 12px;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                padding: 12px;
+                border-radius: 12px;
             }
             
             .clock {
                 padding: 12px;
+                border-radius: 10px;
             }
             
             .clock h3 {
-                font-size: 0.9em;
+                font-size: 0.85em;
                 margin-bottom: 6px;
             }
             
             .clock .time {
-                font-size: 1.4em;
+                font-size: 1.1em;
                 margin-bottom: 8px;
+                word-break: break-all;
             }
             
             .clock .info {
-                font-size: 0.75em;
+                font-size: 0.7em;
+                line-height: 1.3;
             }
             
             .network-visualization {
-                padding: 15px;
-                height: 100px;
+                height: 90px;
+                padding: 12px;
+                border-radius: 12px;
             }
             
             .network-node {
-                width: 70px;
-                height: 70px;
-                font-size: 10px;
+                width: 55px;
+                height: 55px;
+                font-size: 9px;
+            }
+            
+            .network-path {
+                left: 55px;
+                right: 55px;
+                height: 4px;
+            }
+            
+            .packet {
+                width: 12px;
+                height: 12px;
             }
             
             .chart-container {
                 padding: 12px;
+                border-radius: 12px;
+                min-height: 250px;
             }
             
             .chart-title {
-                font-size: 1em;
-                margin-bottom: 10px;
+                font-size: 0.9em;
+                top: 10px;
+                left: 12px;
+            }
+            
+            .observations-panel {
+                padding: 15px;
+                height: auto;
+                max-height: none;
+                gap: 12px;
+                border-radius: 12px;
             }
             
             .status-section {
                 padding: 12px;
-                margin-bottom: 12px;
+                border-radius: 10px;
             }
             
             .status-section h4 {
@@ -861,110 +897,362 @@
                 margin-bottom: 10px;
             }
             
-            .status-item,
-            .metric-item {
+            .status-item {
                 padding: 8px 10px;
                 margin-bottom: 6px;
+                border-radius: 6px;
             }
             
-            .status-item .label,
-            .metric-item .label {
+            .status-item .label {
                 font-size: 0.75em;
             }
             
-            .status-item .value,
-            .metric-item .value {
+            .status-item .value {
                 font-size: 0.8em;
             }
             
             .log-section {
-                height: 250px;
-                font-size: 0.75rem;
+                height: 200px;
+                font-size: 10px;
                 padding: 12px;
+                border-radius: 10px;
             }
             
             .log-entry {
-                padding: 5px 8px;
-                margin: 3px 0;
-                font-size: 0.75rem;
-            }
-            
-            /* Ensure experiment area uses full space */
-            .experiment-area {
-                min-height: calc(100vh - 80px);
+                padding: 4px 6px;
+                margin-bottom: 3px;
+                font-size: 10px;
+                border-radius: 4px;
             }
         }
-        
-        /* Tablet Landscape - Slightly different layout */
+
+        /* ========== SMALL MOBILE BREAKPOINT (max-width: 480px) ========== */
+        @media (max-width: 480px) {
+            .app-container {
+                padding: 8px;
+                gap: 10px;
+            }
+            
+            .header {
+                padding: 12px;
+            }
+            
+            .header h1 {
+                font-size: 1.1em;
+            }
+            
+            .header > div {
+                font-size: 0.75em;
+            }
+            
+            .controls-panel {
+                padding: 12px;
+                gap: 12px;
+            }
+            
+            .scenario-section {
+                padding: 12px;
+            }
+            
+            .scenario-section h3 {
+                font-size: 0.9em;
+            }
+            
+            .parameter-row {
+                grid-template-columns: 1fr auto auto;
+                gap: 6px;
+            }
+            
+            .parameter-row label {
+                font-size: 10px;
+            }
+            
+            .parameter-row input {
+                width: 55px;
+                padding: 5px 6px;
+                font-size: 11px;
+            }
+            
+            .parameter-row .value-display {
+                width: 35px;
+                font-size: 10px;
+            }
+            
+            .control-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .control-btn {
+                padding: 10px;
+                font-size: 11px;
+            }
+            
+            .control-btn.btn-sync,
+            .control-btn.btn-clear {
+                grid-column: span 1;
+            }
+            
+            .clocks-container {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 10px;
+            }
+            
+            .clock {
+                padding: 15px;
+            }
+            
+            .clock h3 {
+                font-size: 0.9em;
+            }
+            
+            .clock .time {
+                font-size: 1.4em;
+            }
+            
+            .clock .info {
+                font-size: 0.75em;
+            }
+            
+            .network-visualization {
+                height: 80px;
+                padding: 10px;
+            }
+            
+            .network-node {
+                width: 50px;
+                height: 50px;
+                font-size: 8px;
+            }
+            
+            .network-path {
+                left: 50px;
+                right: 50px;
+            }
+            
+            .chart-container {
+                min-height: 220px;
+                padding: 10px;
+            }
+            
+            .chart-title {
+                font-size: 0.85em;
+            }
+            
+            .observations-panel {
+                padding: 12px;
+            }
+            
+            .log-section {
+                height: 180px;
+                font-size: 9px;
+            }
+            
+            .log-entry {
+                font-size: 9px;
+            }
+        }
+
+        /* ========== LANDSCAPE MOBILE (max-height: 500px) ========== */
+        @media screen and (max-height: 500px) and (orientation: landscape) {
+            .app-container {
+                grid-template-columns: 250px 1fr 280px;
+                grid-template-rows: 50px 1fr;
+                gap: 8px;
+                padding: 8px;
+                height: 100vh;
+                overflow: hidden;
+            }
+            
+            .header {
+                padding: 0 12px;
+            }
+            
+            .header h1 {
+                font-size: 1.1em;
+            }
+            
+            .header > div {
+                display: none;
+            }
+            
+            .controls-panel {
+                padding: 10px;
+                height: calc(100vh - 66px);
+                gap: 8px;
+            }
+            
+            .scenario-section {
+                padding: 10px;
+            }
+            
+            .scenario-section h3 {
+                font-size: 0.85em;
+                margin-bottom: 8px;
+            }
+            
+            .scenario-select {
+                padding: 6px 8px;
+                font-size: 11px;
+            }
+            
+            .mode-btn {
+                padding: 6px;
+                font-size: 11px;
+            }
+            
+            .parameter-group {
+                padding: 8px;
+            }
+            
+            .parameter-group h4 {
+                font-size: 0.8em;
+                margin-bottom: 6px;
+            }
+            
+            .parameter-row {
+                margin-bottom: 4px;
+            }
+            
+            .parameter-row label {
+                font-size: 0.65em;
+            }
+            
+            .parameter-row input {
+                width: 45px;
+                padding: 3px 4px;
+                font-size: 0.65em;
+            }
+            
+            .parameter-row .value-display {
+                width: 30px;
+                font-size: 0.65em;
+            }
+            
+            .control-btn {
+                padding: 6px 8px;
+                font-size: 0.7em;
+            }
+            
+            .clocks-container {
+                padding: 8px;
+                gap: 8px;
+            }
+            
+            .clock {
+                padding: 8px;
+            }
+            
+            .clock h3 {
+                font-size: 0.75em;
+                margin-bottom: 4px;
+            }
+            
+            .clock .time {
+                font-size: 1em;
+                margin-bottom: 4px;
+            }
+            
+            .clock .info {
+                font-size: 0.6em;
+            }
+            
+            .network-visualization {
+                height: 60px;
+                padding: 8px;
+            }
+            
+            .network-node {
+                width: 45px;
+                height: 45px;
+                font-size: 8px;
+            }
+            
+            .network-path {
+                left: 45px;
+                right: 45px;
+                height: 3px;
+            }
+            
+            .chart-container {
+                padding: 8px;
+            }
+            
+            .chart-title {
+                font-size: 0.8em;
+            }
+            
+            .observations-panel {
+                padding: 10px;
+                height: calc(100vh - 66px);
+                gap: 8px;
+            }
+            
+            .status-section {
+                padding: 8px;
+            }
+            
+            .status-section h4 {
+                font-size: 0.8em;
+                margin-bottom: 6px;
+            }
+            
+            .status-item {
+                padding: 4px 6px;
+                margin-bottom: 3px;
+            }
+            
+            .status-item .label {
+                font-size: 0.65em;
+            }
+            
+            .status-item .value {
+                font-size: 0.7em;
+            }
+            
+            .log-section {
+                height: 120px;
+                font-size: 0.65em;
+                padding: 8px;
+            }
+            
+            .log-entry {
+                padding: 2px 4px;
+                margin: 2px 0;
+                font-size: 0.65em;
+            }
+            
+            .info-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+                top: 8px;
+                right: 8px;
+            }
+        }
+
+        /* ========== TABLET LANDSCAPE (768px - 1024px) ========== */
         @media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
             .app-container {
-                grid-template-columns: 300px 1fr 320px;
-                grid-template-rows: 70px 1fr;
+                grid-template-columns: 280px 1fr 300px;
+                grid-template-rows: 65px 1fr;
                 gap: 12px;
                 padding: 12px;
             }
             
             .header h1 {
-                font-size: 1.6em;
+                font-size: 1.5em;
             }
             
             .controls-panel,
             .observations-panel {
-                height: calc(100vh - 90px);
+                height: calc(100vh - 85px);
             }
         }
-        
-        /* Mobile Portrait Orientation Overlay */
+
+        /* ========== ROTATE DEVICE OVERLAY (hidden - now supporting portrait) ========== */
         .rotate-device-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            z-index: 10000;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .rotate-device-overlay .rotate-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            animation: rotateAnimation 2s ease-in-out infinite;
-        }
-
-        .rotate-device-overlay h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        .rotate-device-overlay p {
-            font-size: 1rem;
-            opacity: 0.9;
-            line-height: 1.5;
-            max-width: 300px;
-        }
-
-        @keyframes rotateAnimation {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(-15deg); }
-            75% { transform: rotate(15deg); }
-        }
-
-        @media screen and (max-width: 768px) and (orientation: portrait) {
-            .rotate-device-overlay {
-                display: flex !important;
-            }
-            
-            .app-container {
-                display: none !important;
-            }
+            display: none !important;
         }
 
         /* Info Modal Styles */
@@ -1113,31 +1401,72 @@
         }
 
         @media (max-width: 768px) {
+            .modal-overlay {
+                padding: 10px;
+            }
+            
             .modal-content {
-                margin: 10px;
+                margin: 0;
                 max-height: 95vh;
+                border-radius: 15px;
             }
             
             .modal-header {
-                padding: 20px 20px 10px;
+                padding: 15px 15px 10px;
+                border-radius: 15px 15px 0 0;
             }
             
             .modal-header h2 {
-                font-size: 1.4em;
+                font-size: 1.2em;
+            }
+            
+            .modal-close {
+                width: 35px;
+                height: 35px;
+                font-size: 1.5em;
             }
             
             .modal-body {
-                padding: 20px;
+                padding: 15px;
                 font-size: 13px;
             }
             
             .guide-section {
-                padding: 15px;
-                margin-bottom: 20px;
+                padding: 12px;
+                margin-bottom: 15px;
             }
             
             .guide-section h3 {
-                font-size: 1.1em;
+                font-size: 1em;
+            }
+            
+            .formula-box {
+                font-size: 11px;
+                padding: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .modal-header h2 {
+                font-size: 1em;
+            }
+            
+            .modal-body {
+                padding: 12px;
+                font-size: 12px;
+            }
+            
+            .guide-section {
+                padding: 10px;
+            }
+            
+            .guide-section h3 {
+                font-size: 0.95em;
+            }
+            
+            .formula-box {
+                font-size: 10px;
+                padding: 10px;
             }
         }
 
@@ -1157,12 +1486,27 @@
             transition: opacity 0.3s, visibility 0.3s, top 0.3s;
             font-size: 1.1em;
             font-weight: 500;
+            max-width: 90%;
+            text-align: center;
         }
 
         .popup.show {
             opacity: 1;
             visibility: visible;
             top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .popup {
+                padding: 12px 18px;
+                font-size: 0.9em;
+                top: 15px;
+                max-width: 95%;
+            }
+            
+            .popup.show {
+                top: 25px;
+            }
         }
 
         .peer-clock {
