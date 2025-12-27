@@ -531,15 +531,10 @@ window.addEventListener('resize', () => {
     }, 100);
 });
 
-// Mobile orientation handling
+// Mobile orientation handling - now just hides the overlay since we support portrait mode
 function checkOrientation() {
     const overlay = document.querySelector('.rotate-device-overlay');
-    const isMobile = window.innerWidth < 768;
-    const isPortrait = window.innerHeight > window.innerWidth;
-
-    if (isMobile && isPortrait) {
-        overlay.style.display = 'flex';
-    } else {
+    if (overlay) {
         overlay.style.display = 'none';
     }
 }
